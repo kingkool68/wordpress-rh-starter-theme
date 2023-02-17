@@ -58,9 +58,9 @@ if ( ! empty( $backtrace ) ) {
 }
 
 if ( ! empty( $args['files'] ) ) {
-	$gitlab_branch = 'master';
+	$github_branch = 'master';
 	if ( wp_get_environment_type() === 'staging' ) {
-		$gitlab_branch = 'staging';
+		$github_branch = 'staging';
 	}
 	$theme_path = str_replace( untrailingslashit( ABSPATH ), '', get_template_directory() );
 	foreach ( $args['files'] as $file_path ) {
@@ -68,7 +68,7 @@ if ( ! empty( $args['files'] ) ) {
 		$new_file       = (object) array(
 			'relative_path' => $file_path,
 			'root_path'     => trailingslashit( $theme_path ) . $file_path,
-			'gitlab_url'    => 'https://gitlab.codingame.com/codinpad/rh-wp/-/blob/' . $gitlab_branch . '/public/wp-content/themes/rh/' . $file_path,
+			'github_url'    => 'https://github.com/kingkool68/wordpress-rh-starter-theme/blob/' . $github_branch . '/' . $file_path,
 			'extension'     => pathinfo( $file_path, PATHINFO_EXTENSION ),
 		);
 		$source_files[] = $new_file;

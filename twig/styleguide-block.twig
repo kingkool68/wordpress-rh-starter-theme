@@ -77,7 +77,7 @@
 				{% if is_user_logged_in %}
 					{% for item in source_files %}
 						<p>
-							<a href="{{ item.gitlab_url|esc_url }}">
+							<a href="{{ item.github_url|esc_url }}">
 								<code>{{ item.relative_path }}</code>
 							</a>
 						<p>
