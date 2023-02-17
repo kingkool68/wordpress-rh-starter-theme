@@ -1,0 +1,55 @@
+{% extends 'base.twig' %}
+
+{% block content %}
+
+<style>
+    .breadcrumbs {
+        max-width: 90rem; /* 1440px */
+        margin: 1rem auto 0;
+    }
+</style>
+
+{% if the_breadcrumbs %}
+    {{ the_breadcrumbs }}
+{% endif %}
+
+<article class="single-post">
+	<h1 class="the-title">Block Audit</h1>
+	<div class="the-content wysiwyg">
+        <p>Dynamically generated list of all registered custom blocks and whether that have a styleguide page or not.</p>
+        <p>{{ number_of_styleguide_pages|absint }}/{{ total_blocks|absint }} or <strong>{{ (number_of_styleguide_pages / total_blocks * 100 )|round(1)  }}%</strong> of our custom blocks have styleguide pages.</p>
+        {% if table_data %}
+            <figure class="wp-block-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Block Title</th>
+                            <th>Block Name</th>
+                            <th>Styleguide URL</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in table_data %}
+                            <tr>
+                                <td>{{ loop.index }}</td>
+                                 <td>{{ row.title}}</td>
+                                <td><a href="https://gitlab.codingame.com/search?search={{ row.block_name|url_encode(true) }}&nav_source=navbar&project_id=135&group_id=158&search_code=true&repository_ref=master">{{ row.block_name }}</a></td>
+                                <td>
+                                    {% if row.styleguide_url %}
+                                    <a href="{{ site_url ~ row.styleguide_url }}">
+                                        {{ row.styleguide_url }}
+                                    </a>
+                                    {% else %}
+                                        --
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </figure>
+        {% endif %}
+    </div>
+</article>
+{% endblock %}

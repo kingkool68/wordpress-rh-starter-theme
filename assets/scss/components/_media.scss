@@ -1,0 +1,48 @@
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+.alignleft {
+    float: left;
+    margin: 0 rem(16px) rem(16px) 0;
+}
+
+.alignright {
+    float: right;
+    margin: 0 0 rem(16px) rem(16px);
+}
+
+.aligncenter {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+
+    video {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+.responsive-embed {
+    position: relative;
+    overflow: hidden;
+
+    iframe,
+    object,
+    embed {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+    }
+}
+
+@media(max-width: em(700px)) {
+    .alignleft,
+    .alignright {
+        float: none;
+    }
+}

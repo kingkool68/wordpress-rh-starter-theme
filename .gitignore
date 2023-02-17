@@ -1,0 +1,7 @@
+/vendor/
+/node_modules/
+
+# Ignore static assets that will be compiled locally or on CI/CD pipeline
+assets/css
+assets/js/**/*.js
+!assets/js/**/*.src.js

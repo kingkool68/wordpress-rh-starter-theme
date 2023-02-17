@@ -1,0 +1,17 @@
+.the-page {
+    max-width: rem(1024px);
+    margin: 0 auto;
+    padding: rem(32px) rem(16px) 0;
+
+    // Prevent horizontal scroll bar when busting elements outside of their container
+    // i.e. margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw);
+    .main-content {
+        overflow-x: hidden;
+    }
+
+    .the-title {
+        @include h1();
+
+        margin-bottom: rem(22px);
+    }
+}

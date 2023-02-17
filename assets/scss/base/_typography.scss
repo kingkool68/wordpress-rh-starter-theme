@@ -1,0 +1,47 @@
+@mixin h1 {
+    font-family: $headline-font;
+    font-size: rem(36px);
+    line-height: 1.15;
+    font-weight: 600;
+    color: $gray-70;
+}
+
+@mixin h2 {
+    font-family: $headline-font;
+    font-size: rem(26px);
+    line-height: 1.15;
+    font-weight: 600;
+    color: $gray-70;
+}
+
+@mixin h3 {
+    font-family: $headline-font;
+    font-size: rem(20px);
+    line-height: 1.15;
+    font-weight: 600;
+    color: $gray-70;
+}
+
+@mixin h4 {
+    font-family: $headline-font;
+    font-size: rem(18px);
+    line-height: 1.15;
+    font-weight: 600;
+    color: $gray-70;
+}
+
+@mixin h5 {
+    font-family: $headline-font;
+    font-size: rem(14px);
+    line-height: 1.15;
+    font-weight: 600;
+    color: $gray-70;
+}
+
+@mixin h6 {
+    font-family: $headline-font;
+    font-size: rem(12px);
+    line-height: 1.15;
+    font-weight: 600;
+    color: $gray-60;
+}

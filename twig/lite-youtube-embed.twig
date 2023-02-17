@@ -1,0 +1,13 @@
+<lite-youtube
+    videoid="{{ videoid|esc_attr }}"
+    {% if params %}
+        params="{{ params }}"
+    {% endif %}
+    style="background-image: url('https://i.ytimg.com/vi/{{ videoid|esc_attr }}/sddefault.jpg');"
+>
+  <a href="{{ url|esc_url }}" class="lty-playbtn">
+    {% if title %}
+        <span class="lyt-visually-hidden">Play Video:{{ ' ' ~ title }}</span>
+    {% endif %}
+  </a>
+</lite-youtube>

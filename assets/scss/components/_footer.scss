@@ -1,0 +1,126 @@
+$_breakpoint : em(860px);
+$_small_breakpoint : em(580px);
+
+.footer {
+    background-color: $gray-67;
+    margin-top: rem(64px);
+    padding: rem(64px) rem(16px) rem(32px);
+
+    @media(max-width: $_breakpoint) {
+        padding-top: rem(32px);
+    }
+
+    @media(max-width: $_small_breakpoint) {
+        padding-top: rem(16px);
+    }
+
+    .inner {
+        max-width: $maximum-page-width;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        color: $white;
+
+        @media(max-width: $_breakpoint) {
+            flex-direction: column-reverse;
+        }
+    }
+
+    .footer-logo {
+        flex: 0 1 40%;
+    }
+
+    .logo {
+        font-size: rem(140px);
+        margin-bottom: rem(16px);
+        color: $white;
+    }
+
+    .footer-menu-items {
+        display: flex;
+        justify-content: flex-end;
+        flex-wrap: wrap;
+
+        @media(max-width: em(940px)) {
+            margin-bottom: rem(64px);
+            flex-basis: 100%;
+            justify-content: space-between;
+        }
+
+        @media(max-width: $_small_breakpoint) {
+            flex-direction: column;
+            margin-bottom: rem(16px);
+        }
+    }
+
+    .footer-menu-item {
+        margin-left: rem(48px);
+        margin-bottom: rem(32px);
+
+        @media(max-width: $_breakpoint) {
+            margin-left: rem(16px);
+            margin-right: rem(16px);
+        }
+    }
+
+    .footer-menu-title {
+        text-transform: uppercase;
+        font-size: rem(16px);
+        margin: rem(16px) 0;
+        font-weight: 700;
+    }
+
+    .footer-menu-list {
+        a {
+            color: $white;
+            display: block;
+            padding: rem(6px) 0;
+            font-size: rem(16px);
+            line-height: 1.75;
+        }
+    }
+
+    .social-links,
+    .utility-links {
+        margin-bottom: rem(8px);
+    }
+
+    .social-links {
+        display: flex;
+        margin-bottom: rem(16px);
+    }
+
+    .social-link {
+        display: block;
+        font-size: rem(16px);
+        border-radius: rem(6px);
+        padding: rem(6px);
+        padding-bottom: rem(4px);
+        margin-right: rem(12px);
+
+        @media(max-width: $_small_breakpoint) {
+            font-size: rem(22px);
+            padding: rem(8px);
+        }
+    }
+
+    .utility-links {
+        padding: rem(8px) 0;
+
+        li {
+            margin-bottom: rem(8px);
+            font-size: rem(16px);
+        }
+
+        a {
+            color: $white;
+            font-weight: 700;
+        }
+    }
+
+    .copyright,
+    .service-mark {
+        font-size: rem(16px);
+        margin: rem(4px) 0 rem(8px);
+    }
+}

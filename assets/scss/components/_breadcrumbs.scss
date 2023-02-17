@@ -1,0 +1,33 @@
+.breadcrumbs {
+    padding: rem(16px);
+
+    .breadcrumb-list {
+        display: flex;
+    }
+
+    .breadcrumb {
+        list-style: none;
+        font-size: rem(14px);
+        display: flex;
+        align-items: center;
+
+        a {
+            color: $logo-red;
+
+            &[aria-current] {
+                color: $gray-70;
+            }
+        }
+    }
+
+    .separator {
+        border-top: rem(1px) solid $gray-10;
+        border-right: rem(1px) solid $gray-10;
+        transform: rotate(45deg);
+
+        display: inline-block;
+        margin: 0 rem(8px);
+        width: 0.6em;
+        height: 0.6em;
+    }
+}

@@ -1,0 +1,40 @@
+{% extends 'base.twig' %}
+
+{% block content %}
+
+<style>
+.example-svg-table td {
+	vertical-align: middle;
+	padding-right: 8px;
+	padding-bottom: 8px;
+}
+.example-svg-table .svg {
+	font-size: 36px;
+}
+.example-svg-table .svg a {
+	color: black;
+}
+</style>
+
+<article class="single-post">
+	<h1 class="the-title">Icons</h1>
+
+	<div class="the-content wysiwyg">
+		<table class="example-svg-table">
+			<tbody>
+				{% for icon in icons %}
+					<tr>
+						<td class="svg">
+								<a href="{{ icon.url|esc_url }}" download>
+									{{ icon.svg }}
+								</a>
+							</td>
+						<td class="label">{{ icon.label }}</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</article>
+
+{% endblock %}

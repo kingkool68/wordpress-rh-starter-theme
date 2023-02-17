@@ -1,0 +1,24 @@
+{% extends 'base.twig' %}
+
+{% block content %}
+
+	<article class="single-post">
+		<div class="the-post">
+			<h1 class="the-title">{{ the_title }}</h1>
+
+			<div class="the-meta">
+				{% if display_date %}
+					<p class="date-categories">
+						<time class="the-date" datetime="{{ machine_date|esc_attr }}">{{ display_date }}</time>
+					</p>
+				{% endif %}
+			</div>
+
+			{{ featured_image }}
+			<div class="the-content wysiwyg">
+				{{ the_content }}
+			</div>
+		</div>
+	</article>
+
+{% endblock %}

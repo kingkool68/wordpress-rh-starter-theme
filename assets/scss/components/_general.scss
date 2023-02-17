@@ -1,0 +1,47 @@
+// Reduce content shift. See https://twitter.com/TimVereecke/status/1239454788116533248
+html {
+	overflow-y: scroll;
+	scroll-behavior: smooth;
+}
+body {
+	font-family: $text-font;
+	color: $gray-65;
+}
+
+a {
+	color: $link-blue;
+
+	&:hover,
+	&focus {
+		text-decoration: underline;
+	}
+}
+
+// Inspired by https://dylanatsmith.com/wrote/styling-the-kbd-element
+kbd {
+	border-radius: rem(4px);
+	border: rem(1px) solid $gray-65;
+
+	// A sharp shadow (with no blur) really gives
+	// the old school keyboard look
+	box-shadow: 0 rem(2px) 0 rem(1px) $gray-65;
+	cursor: default;
+	font-family: $system;
+	font-size: 75%;
+	line-height: 1;
+	min-width: rem(12px); // Make narrow numbers and letters look less odd
+	display: inline-block;
+	text-align: center;
+	padding: rem(2px) rem(5px);
+
+	// These two lines pull the whole element up now that they’re
+	// bottom-heavy due to the `box-shadow`. This looks better
+	// against the cap height of regular paragraph text.
+	position: relative;
+	top: rem(-1px);
+
+	&:hover {
+	  box-shadow: 0 rem(1px) 0 rem(0.5px) $gray-65;
+	  top: rem(1px);
+	}
+  }

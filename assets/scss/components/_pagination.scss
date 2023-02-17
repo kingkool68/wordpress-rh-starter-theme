@@ -1,0 +1,81 @@
+.pagination {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    width: 100%;
+
+    .next-link,
+    .previous-link {
+        font-size: rem(14px);
+        color: $logo-red;
+        padding: rem(32px) rem(16px);
+
+        display: flex;
+        align-items: center;
+    }
+
+    .next-link {
+        order: 3;
+
+        .icon {
+            margin-left: rem(4px);
+        }
+    }
+
+    .previous-link {
+        order: 1;
+
+        .icon {
+            margin-right: rem(4px);
+        }
+
+        .icon-right-arrow {
+            // Flip the right arrow horizontally so it's displaying leftward
+            transform: scaleX(-1);
+        }
+    }
+
+    .disabled {
+        visibility: hidden; // Keeps the layout evenly divided into 3rds at larger screens
+
+        @media(max-width: em(920px)) {
+            display: none;
+        }
+    }
+
+    .link-items {
+        order: 2;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .link-item {
+        display: block;
+        padding: rem(32px) rem(16px);
+        font-size: rem(14px);
+        color: $logo-red;
+        height: 0;
+        text-align: center;
+        line-height: 0;
+    }
+
+    .current {
+        color: $black;
+        font-weight: 700;
+        cursor: default;
+        text-align: center;
+
+        &:hover,
+        &:focus {
+            text-decoration: none;
+        }
+    }
+
+    .link-label {
+        @include hidden;
+    }
+}

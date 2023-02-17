@@ -1,0 +1,23 @@
+<nav class="breadcrumbs" aria-label="{{ aria_label|esc_attr }}">
+    <ol class="breadcrumb-list" itemscope itemtype="https://schema.org/BreadcrumbList">
+        {% for item in items %}
+            <li class="breadcrumb" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                <a
+                    {% if item.url %}
+                        href="{{ item.url|esc_url }}"
+                    {% endif %}
+                    data-ga-category="Breadcrumbs"
+                    data-ga-label="{{ item.text|esc_attr }}"
+                    {% if loop.last %} aria-current="page" {% endif %}
+                    itemprop="item"
+                >
+                    <span itemprop="name">{{ item.text }}</span>
+                    <meta itemprop="position" content="{{ loop.index|absint }}" />
+                </a>
+                {% if not loop.last and separator %}
+                    <span class="separator" aria-hidden="true">{{ separator }}</span>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ol>
+</nav>

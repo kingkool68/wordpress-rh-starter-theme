@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<ruleset name="rh">
+	<!-- See https://github.com/squizlabs/PHP_CodeSniffer/wiki/Annotated-ruleset.xml -->
+	<!-- See https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards/blob/develop/WordPress-Core/ruleset.xml -->
+
+	<!-- Set a description for this ruleset. -->
+	<description>A custom set of code standard rules to check for WordPress themes.</description>
+
+	<file>.</file>
+	<exclude-pattern>node_modules/*</exclude-pattern>
+	<exclude-pattern>vendor/*</exclude-pattern>
+	<exclude-pattern>lib/*</exclude-pattern>
+	<exclude-pattern>*.js</exclude-pattern>
+	<exclude-pattern>*.css</exclude-pattern>
+
+	<!-- Include the WordPress ruleset, with exclusions. -->
+	<rule ref="WordPress">
+		<!-- File comments are optional -->
+		<exclude name="Squiz.Commenting.FileComment.Missing"/>
+		<!-- It's ok if comments don't end in a full stop -->
+		<exclude name="Squiz.Commenting.InlineComment.InvalidEndChar"/>
+		<exclude name="Squiz.Commenting.FunctionComment.ParamCommentFullStop"/>
+		<!-- It's ok if @throws doc block tag doesn't end in a full stop -->
+		<exclude name="Squiz.Commenting.FunctionComment.ThrowsNoFullStop"/>
+		<exclude name="Generic.Commenting.DocComment.LongNotCapital"/>
+		<!-- We automatically handle static asset versioning based on when the file was last modified -->
+		<exclude name="WordPress.WP.EnqueuedResourceParameters.MissingVersion"/>
+		<!-- Any kind of formatting for hook names is fine -->
+		<exclude name="WordPress.NamingConventions.ValidHookName.UseUnderscores"/>
+		<!-- I don't think in Yoda speak. See https://github.com/humanmade/WordPress-Importer/blob/7fa0a24c12818e60f70d73293b79a277e742b2f1/phpcs.ruleset.xml#L25-L44 -->
+		<exclude name="WordPress.PHP.YodaConditions" />
+	</rule>
+</ruleset>

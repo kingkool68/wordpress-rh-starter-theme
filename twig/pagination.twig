@@ -1,0 +1,64 @@
+<nav class="pagination">
+
+	{# Page numbers go down from the current page #}
+	{% if next_url %}
+		<a
+			href="{{ next_url|esc_url }}"
+			class="next-link"
+			rel="next"
+			title="Go to page {{ next_page_num|esc_attr }}"
+		>
+			{{ next_text }}
+			{{ next_icon }}
+		</a>
+	{% else %}
+		<a class="next-link disabled">{{ next_text }} {{ next_icon }}</a>
+	{% endif %}
+
+	{# Page numbers go up from the current page #}
+	{% if previous_url %}
+		<a
+			href="{{ previous_url|esc_url }}"
+			class="previous-link"
+			rel="prev"
+			title="Go to page {{ previous_page_num|esc_attr }}"
+		>
+			{{ previous_icon }}
+			{{ previous_text }}
+		</a>
+	{% else %}
+		<a class="previous-link disabled">{{ previous_icon }} {{ previous_text }}</a>
+	{% endif %}
+
+	{% if links %}
+		<ol class="link-items" start="{{ start_num|absint }}">
+			{% for link in links %}
+				<li class="link-container">
+					<a
+						{% if not link.is_current %}
+							href="{{ link.url|esc_url }}"
+						{% endif %}
+						class="link-item {{ (link.is_current) ? ' current' : '' }}"
+						title="Go to page {{ ' ' ~ link.num }}"
+					>
+						<span class="link-label screen-reader-text">Page</span> {{ link.num }}
+					</a>
+				</li>
+			{% endfor %}
+			{% if total_pages_num and total_pages_url %}
+				<li class="link-container" aria-hidden="true">
+					&hellip;
+				</li>
+				<li class="link-container">
+					<a
+						href="{{ total_pages_url|esc_url }}"
+						class="link-item total-pages"
+						title="Go to page {{ total_pages_num }}"
+					>
+						<span class="link-label screen-reader-text">Page</span> {{ total_pages_num }}
+					</a>
+				</li>
+			{% endif %}
+		</ol>
+	{% endif %}
+</nav>

@@ -1,0 +1,13 @@
+{% extends 'base.twig' %}
+
+{% block content %}
+
+	{% if archive_items %}
+		<section class="post-archive-items">
+			{{ archive_items }}
+		</section>
+	{% endif %}
+
+	{{ pagination }}
+
+{% endblock %}

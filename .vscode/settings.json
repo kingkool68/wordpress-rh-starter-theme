@@ -1,0 +1,7 @@
+{
+    "search.exclude": {
+      "**/*.css": true,
+      "**/*.map": true,
+      "**/vendor": true
+    }
+}
