@@ -17,7 +17,7 @@ module.exports = {
 	injectChanges: true,
 
 	// Style options.
-	styleSRC: './assets/scss/**/*.scss', // Path to main .scss file.
+	styleSRC: ['./assets/scss/**/*.scss', './blocks/**/*.scss'], // Path to main .scss file.
 	styleDestination: './assets/css/', // Path to place the compiled CSS file. Default set to root folder.
 	outputStyle: 'compressed', // Available options → 'compact' or 'compressed' or 'nested' or 'expanded'
 	errLogToConsole: true,
@@ -34,7 +34,7 @@ module.exports = {
 	imgDST: './assets/img/', // Destination folder of optimized images. Must be different from the imagesSRC folder.
 
 	// Watch files paths.
-	styleWatchFiles: './assets/scss/**/*.scss', // Path to all *.scss files inside css folder and inside them.
+	styleWatchFiles: ['./assets/scss/**/*.scss', './blocks/**/*.scss'], // Path to all *.scss files inside css folder and inside them.
 	customJSWatchFiles: './assets/js/**/*.src.js', // Path to all custom JS files.
 	projectPHPWatchFiles: './**/*.php', // Path to all PHP files.
 
