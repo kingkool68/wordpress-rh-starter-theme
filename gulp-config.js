@@ -23,12 +23,13 @@ module.exports = {
 	includePaths: ['./assets/scss'], // Tell Sass where to look for @import statements
 
 	// JS Custom options.
-	jsCustomSRC: ['./**/*.src.js', '!./vendor/', '!./node_modules/' ], // Path to JS custom scripts folder.
-	jsCustomDestination: './assets/js/', // Path to place the compiled JS custom scripts file.
+	scriptSRC: ['./**/*.src.js', '!./vendor/', '!./node_modules/' ], // Globs of scripts to process.
+	scriptBase: './', // Path where the globs are considered to start.
+	scriptDest: './', // Path where we save the scripts back to.
 
 	// Watch files paths.
 	styleWatchFiles: ['./assets/scss/**/*.scss', './blocks/**/*.scss'], // *.scss files to watch changes and recompile
-	customJSWatchFiles: ['./assets/js/**/*.src.js', './blocks/**/*.src.js'], // *.src.js files to watch changes and recompile
+	scriptWatchFiles: ['./assets/js/**/*.src.js', './blocks/**/*.src.js'], // *.src.js files to watch changes and recompile
 
 	// Dependencies to move into place
 	// NOTE: rename is object of options to pass to gulp-rename

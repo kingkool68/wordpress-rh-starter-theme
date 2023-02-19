@@ -44,7 +44,7 @@
     "setup": "gulp setup && gulp",
     "start": "gulp",
     "styles": "gulp styles",
-    "vendorsJS": "gulp vendorsJS",
-    "customJS": "gulp customJS"
+    "scripts": "gulp scripts",
+    "clean": "gulp clean"
   }
 }
