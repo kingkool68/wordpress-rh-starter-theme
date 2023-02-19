@@ -1,0 +1,37 @@
+<?php
+$default_image = RH_Media::render(
+	array(
+		'image_src'  => 'https://dummyimage.com/1024x512.png',
+		'image_attr' => array(
+			'width'  => 1024,
+			'height' => 512,
+		),
+	)
+);
+
+$default_args = array(
+	'image'            => $default_image,
+	'image_alignment'  => 'left',
+	'image_proportion' => '',
+	'bg_color'         => 'gray',
+	'kicker'           => 'Kicker',
+	'headline'         => 'Headline',
+	'headline_url'     => 'https://example.com',
+);
+
+$basic_args = wp_parse_args( array(), $default_args );
+
+$args = array(
+	'block_name'      => 'rh-text-image',
+	'the_title'       => 'Text Image Block',
+	'the_description' => 'Derp.',
+	'examples'        => array(
+		'basic' => RH_Text_Image_Block::render( $basic_args ),
+	),
+	'files'           => array(
+		'blocks/text-image-block/class-rh-text-image-block.php',
+		'blocks/text-image-block/text-image-block.twig',
+		'blocks/text-image-block/text-image-block.scss',
+	),
+);
+get_template_part( 'styleguide', 'block', $args );

@@ -1,0 +1,31 @@
+@import 'base/_imports.scss';
+
+$_breakpoint: em(800px);
+
+.text-image-block {
+    margin: rem(64px) calc(50% - 50vw);
+
+    @media(max-width: $_breakpoint) {
+        margin-top: rem(32px);
+        margin-bottom: rem(32px);
+        padding: 0 rem(16px);
+    }
+
+    .inner {
+        max-width: rem(720px);
+        margin-left: auto;
+        margin-right: auto;
+        display: flex;
+        align-items: center;
+        padding: rem(32px) rem(16px);
+
+        @media(max-width: $_breakpoint) {
+            display: block;
+            padding: rem(16px);
+        }
+    }
+
+    .kicker {
+        color: $logo-red;
+    }
+}
