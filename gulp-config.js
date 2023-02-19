@@ -23,7 +23,7 @@ module.exports = {
 	includePaths: ['./assets/scss'], // Tell Sass where to look for @import statements
 
 	// JS Custom options.
-	jsCustomSRC: './assets/js/**/*.src.js', // Path to JS custom scripts folder.
+	jsCustomSRC: ['./**/*.src.js', '!./vendor/', '!./node_modules/' ], // Path to JS custom scripts folder.
 	jsCustomDestination: './assets/js/', // Path to place the compiled JS custom scripts file.
 
 	// Watch files paths.

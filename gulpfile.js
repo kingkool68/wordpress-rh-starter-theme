@@ -36,13 +36,16 @@ var gulp = require( 'gulp' ); // Gulp of-course
 var sass         = require( 'gulp-dart-sass' ); // Gulp pluign for Sass compilation.
 var minifycss    = require( 'gulp-uglifycss' ); // Minifies CSS files.
 var autoprefixer = require( 'gulp-autoprefixer' ); // Autoprefixing magic.
-// var mmq          = require( 'gulp-merge-media-queries' ); // Combine matching media queries into one media query definition.
 var jmq          = require( 'gulp-join-media-queries' );
 
 // JS related plugins.
 var uglify  = require( 'gulp-uglify' ); // Minifies JS files
 var babel   = require( 'gulp-babel' ); // Compiles ESNext to browser compatible JS.
-var esbuild = require( 'gulp-esbuild' ); // Modern bundling
+// var esbuild = require( 'gulp-esbuild' ); // Modern bundling
+var { createGulpEsbuild } = require('gulp-esbuild');
+var esbuild = createGulpEsbuild({
+	pipe: true,
+});
 
 // Utility related plugins.
 var rename      = require( 'gulp-rename' ); // Renames files E.g. style.css -> style.min.css
@@ -51,6 +54,7 @@ var filter      = require( 'gulp-filter' ); // Enables you to work on a subset o
 var notify      = require( 'gulp-notify' ); // Sends message notification to you
 var remember    = require( 'gulp-remember' ); // Adds all the files it has ever seen back into the stream
 var plumber     = require( 'gulp-plumber' ); // Prevent pipe breaking caused by errors from gulp plugins
+// var debug       = require('gulp-debug'); // For debugging Gulp files and such
 
 /**
  * Task: `styles`.
@@ -102,7 +106,16 @@ gulp.task( 'styles', function() {
  */
 gulp.task( 'customJS', function() {
 	return gulp
-		.src( config.jsCustomSRC, { since: gulp.lastRun( 'customJS' ) }) // Only run on changed files.
+		.src(config.jsCustomSRC, {
+			since: gulp.lastRun('customJS'), // Only run on changed files.
+			base: './',
+		})
+		.pipe(
+			rename(function (path) {
+				path.basename = path.basename.replace('.src', '');
+				return path;
+			})
+		)
 		.pipe(
 			plumber({
 				errorHandler: function( err ) {
@@ -113,13 +126,10 @@ gulp.task( 'customJS', function() {
 		)
 		.pipe(
 			esbuild({
-
-				// outfile: 'bundle.js',
 				bundle: true,
 				loader: { '.js': 'js' }
 			})
 		)
-
 		.pipe(
 			babel({
 				presets: [
@@ -132,17 +142,10 @@ gulp.task( 'customJS', function() {
 				]
 			})
 		)
-
 		.pipe( remember( 'customJS' ) ) // Bring all files back to stream
-		.pipe(
-			rename( function( path ) {
-				path.basename = path.basename.replace( '.src', '' );
-				return path;
-			})
-		)
 		.pipe( uglify() )
 		.pipe( lineec() ) // Consistent Line Endings for non UNIX systems.
-		.pipe( gulp.dest( config.jsCustomDestination ) )
+		.pipe( gulp.dest( './' ) )
 		.pipe( notify({ message: 'TASK: "customJS" Completed! 💯', onLast: true }) );
 });
 
