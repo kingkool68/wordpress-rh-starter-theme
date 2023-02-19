@@ -166,16 +166,6 @@ gulp.task( 'setup', function() {
 });
 
 /**
- * Task: `clear-images-cache`.
- *
- * Deletes the images cache. By running the next "images" task,
- * each image will be regenerated.
- */
-gulp.task( 'clearCache', function( done ) {
-	return cache.clearAll( done );
-});
-
-/**
  * Watch Tasks.
  *
  * Watches for file changes and runs specific tasks.
