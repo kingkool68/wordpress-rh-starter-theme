@@ -49,7 +49,6 @@ var rename      = require( 'gulp-rename' ); // Renames files E.g. style.css -> s
 var lineec      = require( 'gulp-line-ending-corrector' ); // Consistent Line Endings for non UNIX systems. Gulp Plugin for Line Ending Corrector (A utility that makes sure your files have consistent line endings)
 var filter      = require( 'gulp-filter' ); // Enables you to work on a subset of the original files by filtering them using globbing.
 var notify      = require( 'gulp-notify' ); // Sends message notification to you
-var cache       = require( 'gulp-cache' ); // Cache files in stream for later use
 var remember    = require( 'gulp-remember' ); // Adds all the files it has ever seen back into the stream
 var plumber     = require( 'gulp-plumber' ); // Prevent pipe breaking caused by errors from gulp plugins
 
