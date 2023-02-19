@@ -94,9 +94,9 @@ gulp.task( 'styles', function() {
 });
 
 /**
- * Task: `customJS`.
+ * Task: `scripts`.
  *
- * Concatenate and uglify custom JS scripts.
+ * Compile and uglify JavaScript files.
  *
  * This task does the following:
  *     1. Gets the source folder for JS custom files
@@ -104,11 +104,11 @@ gulp.task( 'styles', function() {
  *     3. Renames the JS file with suffix .min.js
  *     4. Uglifes/Minifies the JS file and generates custom.min.js
  */
-gulp.task( 'customJS', function() {
+gulp.task( 'scripts', function() {
 	return gulp
-		.src(config.jsCustomSRC, {
-			since: gulp.lastRun('customJS'), // Only run on changed files.
-			base: './',
+		.src(config.scriptSRC, {
+			since: gulp.lastRun('scripts'), // Only run on changed files.
+			base: config.scriptBase,
 		})
 		.pipe(
 			rename(function (path) {
@@ -142,11 +142,11 @@ gulp.task( 'customJS', function() {
 				]
 			})
 		)
-		.pipe( remember( 'customJS' ) ) // Bring all files back to stream
+		.pipe( remember( 'scripts' ) ) // Bring all files back to stream
 		.pipe( uglify() )
 		.pipe( lineec() ) // Consistent Line Endings for non UNIX systems.
-		.pipe( gulp.dest( './' ) )
-		.pipe( notify({ message: 'TASK: "customJS" Completed! 💯', onLast: true }) );
+		.pipe(gulp.dest(config.scriptBase ) )
+		.pipe( notify({ message: 'TASK: "scripts" Completed! 💯', onLast: true }) );
 });
 
 gulp.task( 'setup', function() {
@@ -176,10 +176,10 @@ gulp.task(
 	'default',
 	gulp.parallel(
 		'styles',
-		'customJS',
+		'scripts',
 		function watchFiles() {
 			gulp.watch( config.styleWatchFiles, gulp.parallel( 'styles' ) ); // Reload on SCSS file changes.
-			gulp.watch( config.customJSWatchFiles, gulp.series( 'customJS' ) ); // Reload on customJS file changes.
+			gulp.watch( config.scriptWatchFiles, gulp.series( 'scripts' ) ); // Reload on scripts file changes.
 		}
 	)
 );
