@@ -78,6 +78,21 @@ foreach ( $iterator as $file ) {
  */
 function filter_sprig_roots( $paths = array() ) {
 	$paths[] = get_template_directory() . '/styleguide';
+
+	// Add every directory in the /blocks/ directory to the possible path for a Twig file
+	$iter = new RecursiveIteratorIterator(
+		new RecursiveDirectoryIterator(
+			get_template_directory() . '/blocks/',
+			RecursiveDirectoryIterator::SKIP_DOTS
+		),
+		RecursiveIteratorIterator::SELF_FIRST,
+		RecursiveIteratorIterator::CATCH_GET_CHILD // Ignore "Permission denied"
+	);
+	foreach ( $iter as $path => $dir ) {
+		if ( $dir->isDir() ) {
+			$paths[] = $path;
+		}
+	}
 	return $paths;
 }
 add_filter( 'sprig/roots', 'filter_sprig_roots' );
