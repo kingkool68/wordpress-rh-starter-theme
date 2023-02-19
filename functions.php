@@ -44,6 +44,31 @@ foreach ( $files_to_require as $filename ) {
 	}
 }
 
+// Autoload block classes
+$path      = get_template_directory() . '/blocks/';
+$directory = new RecursiveDirectoryIterator( $path );
+$filter    = new RecursiveCallbackFilterIterator(
+	$directory,
+	function ( $current ) {
+		// Skip hidden files and directories.
+		if ( $current->getFilename()[0] === '.' ) {
+			return false;
+		}
+		if ( $current->getExtension() === '' || $current->getExtension() === 'php' ) {
+			return true;
+		}
+		return false;
+	}
+);
+$iterator  = new RecursiveIteratorIterator( $filter );
+foreach ( $iterator as $file ) {
+	$the_file = $file->getPathname();
+	if ( file_exists( $the_file ) ) {
+		require_once $the_file;
+	}
+}
+
+
 /**
  * Add the styleguide directory to the known directories Sprig should look
  * for Twig files to render
