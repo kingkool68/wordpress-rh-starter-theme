@@ -41,12 +41,12 @@ class RH_Text_Image_Block {
 
 		// Custom fields for the block
 		$args = array(
-			'name'            => 'rh - text - image',
+			'name'            => 'rh-text-image',
 			'title'           => 'RH Text / Image',
 			'description'     => 'A custom Text / Image block . ',
 			'render_callback' => array( $this, 'render_from_block' ),
 			'category'        => 'rh',
-			'icon'            => 'align - left',
+			'icon'            => 'align-left',
 			'keywords'        => array( 'text / image', 'text image' ),
 		);
 		acf_register_block_type( $args );
@@ -78,9 +78,9 @@ class RH_Text_Image_Block {
 					'label'      => 'Image Proportion',
 					'type'       => 'select',
 					'choices'    => array(
-						'one - third'  => '1 / 3',
-						'half'         => '1 / 2',
-						'two - thirds' => '2 / 3',
+						'one-third'  => '1/3',
+						'half'       => '1/2',
+						'two-thirds' => '2/3',
 					),
 					'allow_null' => true,
 				),
@@ -127,7 +127,7 @@ class RH_Text_Image_Block {
 					array(
 						'param'    => 'block',
 						'operator' => ' == ',
-						'value'    => 'acf / rh - text - image',
+						'value'    => 'acf/rh-text-image',
 					),
 				),
 			),
