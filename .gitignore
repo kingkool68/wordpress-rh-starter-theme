@@ -5,4 +5,7 @@
 assets/css
 assets/js/**/*.js
 !assets/js/**/*.src.js
+blocks/**/*.js
+!blocks/**/*.src.js
+
 page-test.php

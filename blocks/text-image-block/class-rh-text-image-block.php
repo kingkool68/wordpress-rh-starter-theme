@@ -24,6 +24,9 @@ class RH_Text_Image_Block {
 		add_action( 'acf/init', array( $this, 'action_acf_init' ) );
 	}
 
+	/**
+	 * Register block-speciifc styles and scripts
+	 */
 	public function action_init() {
 		wp_register_style(
 			'rh-text-image-block',
@@ -31,6 +34,14 @@ class RH_Text_Image_Block {
 			$deps  = array( 'rh' ),
 			$ver   = null,
 			$media = 'all'
+		);
+
+		wp_register_script(
+			'rh-text-image-block',
+			get_template_directory_uri() . '/blocks/text-image-block/rh-text-image.js',
+			$deps      = array(),
+			$ver       = null,
+			$in_footer = true
 		);
 	}
 
@@ -162,6 +173,7 @@ class RH_Text_Image_Block {
 		$context['description'] = apply_filters( 'the_content', $context['description'] );
 
 		wp_enqueue_style( 'rh-text-image-block' );
+		wp_enqueue_script( 'rh-text-image-block' );
 		return Sprig::render( 'text-image-block.twig', $context );
 	}
 
