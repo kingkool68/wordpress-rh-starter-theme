@@ -36,7 +36,8 @@ var gulp = require( 'gulp' ); // Gulp of-course
 var sass         = require( 'gulp-dart-sass' ); // Gulp pluign for Sass compilation.
 var minifycss    = require( 'gulp-uglifycss' ); // Minifies CSS files.
 var autoprefixer = require( 'gulp-autoprefixer' ); // Autoprefixing magic.
-var mmq          = require( 'gulp-merge-media-queries' ); // Combine matching media queries into one media query definition.
+// var mmq          = require( 'gulp-merge-media-queries' ); // Combine matching media queries into one media query definition.
+var jmq          = require( 'gulp-join-media-queries' );
 
 // JS related plugins.
 var uglify  = require( 'gulp-uglify' ); // Minifies JS files
@@ -80,7 +81,7 @@ gulp.task( 'styles', function() {
 		.on( 'error', sass.logError )
 		.pipe( autoprefixer( config.BROWSERS_LIST ) )
 		.pipe( filter( '**/*.css' ) ) // Filtering stream to only css files
-		.pipe( mmq({ log: true }) ) // Merge Media Queries only for .min.css version.
+		.pipe( jmq({ log: true }) ) // Merge Media Queries only for .min.css version.
 		.pipe( rename({ suffix: '.min' }) )
 		.pipe( minifycss() )
 		// .pipe( sourcemaps.write( './' ) )
