@@ -22,6 +22,7 @@ module.exports = {
 	outputStyle: 'compressed', // Available options → 'compact' or 'compressed' or 'nested' or 'expanded'
 	errLogToConsole: true,
 	precision: 10,
+	includePaths: ['./assets/scss'], // Tell Sass where to look for @imports
 
 	// JS Custom options.
 	jsCustomSRC: './assets/js/**/*.src.js', // Path to JS custom scripts folder.

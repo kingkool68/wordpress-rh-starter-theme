@@ -73,7 +73,8 @@ gulp.task( 'styles', function() {
 			sass({
 				errLogToConsole: config.errLogToConsole,
 				outputStyle: config.outputStyle,
-				precision: config.precision
+				precision: config.precision,
+				includePaths: config.includePaths,
 			})
 		)
 		.on( 'error', sass.logError )
