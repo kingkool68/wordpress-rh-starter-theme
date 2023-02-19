@@ -58,7 +58,7 @@ if ( ! empty( $backtrace ) ) {
 }
 
 if ( ! empty( $args['files'] ) ) {
-	$github_branch = 'master';
+	$github_branch = 'main';
 	if ( wp_get_environment_type() === 'staging' ) {
 		$github_branch = 'staging';
 	}
