@@ -36,16 +36,6 @@
         margin-bottom: rem(16px);
     }
 
-    // Increase the space between an element and headings
-    *+h1,
-    *+h2,
-    *+h3,
-    *+h4,
-    *+h5,
-    *+h6 {
-        margin-top: rem(40px);
-    }
-
     abbr {
         text-decoration: none;
         cursor: help;
