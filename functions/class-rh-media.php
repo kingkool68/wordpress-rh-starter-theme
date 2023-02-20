@@ -42,13 +42,22 @@ class RH_Media {
 		add_theme_support( 'post-thumbnails' );
 
 		// See https://github.com/paulirish/lite-youtube-embed
-			wp_register_script(
-				'lite-youtube-embed',
-				get_template_directory_uri() . '/assets/js/lite-youtube-embed.js',
-				$deps      = array(),
-				$ver       = null,
-				$in_footer = true
-			);
+		wp_register_style(
+			'lite-youtube-embed',
+			get_template_directory_uri() . '/assets/css/lite-youtube-embed.min.css',
+			$deps  = array( 'rh' ),
+			$ver   = null,
+			$media = 'all'
+		);
+
+		wp_register_script(
+			'lite-youtube-embed',
+			get_template_directory_uri() . '/assets/js/lite-youtube-embed.js',
+			$deps      = array(),
+			$ver       = null,
+			$in_footer = true
+		);
+
 	}
 
 	/**
@@ -140,6 +149,7 @@ class RH_Media {
 	 */
 	public function filter_oembed_lite_youtube( $cache = '', $url = '', $attr = array() ) {
 		if ( str_contains( $cache, '<lite-youtube' ) ) {
+			wp_enqueue_style( 'lite-youtube-embed' );
 			wp_enqueue_script( 'lite-youtube-embed' );
 		}
 		return $cache;
