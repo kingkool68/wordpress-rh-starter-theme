@@ -25,7 +25,29 @@ $_breakpoint: em(800px);
         }
     }
 
+    .media {
+        padding-right: rem(32px);
+    }
+
     .kicker {
         color: $logo-red;
+        margin-bottom: 0;
+    }
+
+    &.text-image-block--no-image {
+        .inner {
+            display: block;
+        }
+    }
+
+    &.text-image-block--align-right {
+        .inner {
+            flex-direction: row-reverse;
+        }
+
+        .media {
+            padding-right: 0;
+            padding-left: rem(32px);
+        }
     }
 }

@@ -19,14 +19,21 @@ $default_args = array(
 	'headline_url'     => 'https://example.com',
 );
 
-$basic_args = wp_parse_args( array(), $default_args );
+$basic_args         = wp_parse_args( array(), $default_args );
+$right_aligned_args = wp_parse_args(
+	array(
+		'image_alignment' => 'right',
+	),
+	$default_args
+);
 
 $args = array(
 	'block_name'      => 'rh-text-image',
 	'the_title'       => 'Text Image Block',
 	'the_description' => 'Derp.',
 	'examples'        => array(
-		'basic' => RH_Text_Image_Block::render( $basic_args ),
+		'basic'         => RH_Text_Image_Block::render( $basic_args ),
+		'right_aligned' => RH_Text_Image_Block::render( $right_aligned_args ),
 	),
 	'files'           => array(
 		'blocks/text-image-block/class-rh-text-image-block.php',
