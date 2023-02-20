@@ -31,6 +31,8 @@ module.exports = {
 	styleWatchFiles: ['./assets/scss/**/*.scss', './blocks/**/*.scss'], // *.scss files to watch changes and recompile
 	scriptWatchFiles: ['./assets/js/**/*.src.js', './blocks/**/*.src.js'], // *.src.js files to watch changes and recompile
 
+	filesToClean: ['./assets/css/', './assets/js/**/*.js', '!./assets/js/', '!./assets/js/**/*.src.js'],
+
 	// Dependencies to move into place
 	// NOTE: rename is object of options to pass to gulp-rename
 	filesToMove: [

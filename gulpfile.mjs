@@ -23,39 +23,41 @@
  *
  * Customize your project in the config.js file
  */
-const config = require( './gulp-config.js' );
+import config from './gulp-config.js';
 
 /**
  * Load Plugins.
  *
  * Load gulp plugins and passing them semantic names.
  */
-var gulp = require( 'gulp' ); // Gulp of-course
+import gulp from 'gulp'; // Gulp of-course
 
 // CSS related plugins.
-var sass         = require( 'gulp-dart-sass' ); // Gulp pluign for Sass compilation.
-var minifycss    = require( 'gulp-uglifycss' ); // Minifies CSS files.
-var autoprefixer = require( 'gulp-autoprefixer' ); // Autoprefixing magic.
-var jmq          = require( 'gulp-join-media-queries' );
+import dartSass from 'sass'; // Gulp pluign for Sass compilation.
+import gulpSass from 'gulp-sass';
+var sass = gulpSass(dartSass);
+import minifycss from 'gulp-uglifycss' // Minifies CSS files.
+import autoprefixer from 'gulp-autoprefixer'; // Autoprefixing magic.
+import jmq from 'gulp-join-media-queries'; // For combining media queries
 
 // JS related plugins.
-var uglify  = require( 'gulp-uglify' ); // Minifies JS files
-var babel   = require( 'gulp-babel' ); // Compiles ESNext to browser compatible JS.
-// var esbuild = require( 'gulp-esbuild' ); // Modern bundling
-var { createGulpEsbuild } = require('gulp-esbuild');
+import uglify from 'gulp-uglify'; // Minifies JS files
+import babel from 'gulp-babel'; // Compiles ESNext to browser compatible JS.
+
+import { createGulpEsbuild } from 'gulp-esbuild';
 var esbuild = createGulpEsbuild({
 	pipe: true,
 });
 
 // Utility related plugins.
-var rename      = require( 'gulp-rename' ); // Renames files E.g. style.css -> style.min.css
-var lineec      = require( 'gulp-line-ending-corrector' ); // Consistent Line Endings for non UNIX systems. Gulp Plugin for Line Ending Corrector (A utility that makes sure your files have consistent line endings)
-var filter      = require( 'gulp-filter' ); // Enables you to work on a subset of the original files by filtering them using globbing.
-var notify      = require( 'gulp-notify' ); // Sends message notification to you
-var remember    = require( 'gulp-remember' ); // Adds all the files it has ever seen back into the stream
-var plumber     = require( 'gulp-plumber' ); // Prevent pipe breaking caused by errors from gulp plugins
-// var debug       = require('gulp-debug'); // For debugging Gulp files and such
-
+import rename from 'gulp-rename'; // Renames files E.g. style.css -> style.min.css
+import lineec from 'gulp-line-ending-corrector'; // Consistent Line Endings for non UNIX systems. Gulp Plugin for Line Ending Corrector (A utility that makes sure your files have consistent line endings)
+import filter from 'gulp-filter'; // Enables you to work on a subset of the original files by filtering them using globbing.
+import notify from 'gulp-notify'; // Sends message notification to you
+import remember from 'gulp-remember'; // Adds all the files it has ever seen back into the stream
+import plumber from 'gulp-plumber'; // Prevent pipe breaking caused by errors from gulp plugins
+// import debug from 'gulp-debug'; // For debugging Gulp filenames and paths
+import {deleteSync} from 'del'; // Handles deleting files and directories
 /**
  * Task: `styles`.
  *
@@ -149,6 +151,13 @@ gulp.task( 'scripts', function() {
 		.pipe( notify({ message: 'TASK: "scripts" Completed! 💯', onLast: true }) );
 });
 
+gulp.task('clean', function () {
+	var deletedPaths = deleteSync(config.filesToClean);
+	return gulp
+		.src('.')
+		.pipe(notify({ message: 'TASK: "clean" Completed! 💯', onLast: true }));
+});
+
 gulp.task( 'setup', function() {
 	config.filesToMove.forEach( function( file ) {
 		if ( ! file.rename ) {
@@ -175,6 +184,7 @@ gulp.task( 'setup', function() {
 gulp.task(
 	'default',
 	gulp.parallel(
+		'clean',
 		'styles',
 		'scripts',
 		function watchFiles() {
