@@ -1,0 +1,93 @@
+@mixin hidden {
+  clip: rect(rem(1px), rem(1px), rem(1px), rem(1px));
+  height: rem(1px);
+  overflow: hidden;
+  position: absolute !important;
+  width: rem(1px);
+}
+
+@mixin unhidden {
+  clip: auto !important;
+  display: block;
+  height: auto;
+  left: rem(5px);
+  top: rem(5px);
+  width: auto;
+  z-index: 101; // Above WP toolbar
+}
+
+/// Mixin to place items on a circle
+/// @author Kitty Giraudel
+/// @author Ana Tudor
+/// @param {Integer} $item-count - Number of items on the circle
+/// @param {Length} $circle-size - Large circle size
+/// @param {Length} $item-size - Single item size
+@mixin on-circle($item-count, $circle-size, $item-size) {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border-radius: 50%;
+  list-style: none;
+
+  >* {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: $item-size;
+    height: $item-size;
+    margin: -(math.div($item-size, 2));
+
+    $angle: math.div(360, $item-count );
+    $rot: 0;
+    $half-circle-size: math.div($circle-size, 2);
+
+    @for $i from 1 through $item-count {
+      &:nth-of-type(#{$i}) {
+        transform:
+          rotate($rot * 1deg) translate($half-circle-size - math.div($item-size, 2)) rotate($rot * -1deg);
+      }
+
+      $rot: $rot + $angle;
+    }
+  }
+}
+
+/// Mixin to add spokes to a circle
+/// @author Kitty Giraudel
+/// @author Ana Tudor
+/// @param {Integer} $item-count - Number of items on the circle
+/// @param {Length} $circle-size - Large circle size
+/// @param {Length} $item-size - Single item size
+@mixin on-spoke($item-count, $circle-size, $item-size) {
+  $angle: math.div(360, $item-count );
+  $rot: 0;
+  $half-circle-size: math.div($circle-size, 2);
+
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border-radius: 50%;
+  list-style: none;
+
+  >* {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 13.5%;
+    width: 50%;
+
+    $translate: math.div($circle-size, 4)+math.div($item-size, 2) * -1;
+
+    @for $i from 1 through $item-count {
+      &:nth-of-type(#{$i}) {
+        transform:
+          rotate($rot * 1deg) translate($translate);
+      }
+
+      $rot: $rot + $angle;
+    }
+  }
+}

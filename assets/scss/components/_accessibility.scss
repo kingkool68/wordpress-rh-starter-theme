@@ -1,25 +1,6 @@
 // For text that needs to be hidden visually but still available to screen readers
 // See https://make.wordpress.org/accessibility/2015/02/09/hiding-text-for-screen-readers-with-wordpress-core/
 
-
-@mixin hidden {
-  clip: rect(rem(1px), rem(1px), rem(1px), rem(1px));
-  height: rem(1px);
-  overflow: hidden;
-  position: absolute !important;
-  width: rem(1px);
-}
-
-@mixin unhidden {
-  clip: auto !important;
-  display: block;
-  height: auto;
-  left: rem(5px);
-  top: rem(5px);
-  width: auto;
-  z-index: 101; // Above WP toolbar
-}
-
 .screen-reader-text {
   @include hidden();
 }
