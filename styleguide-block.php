@@ -1,11 +1,22 @@
 <?php
+// add_filter( 'wp_robots', 'wp_robots_no_robots' );
+add_filter(
+	'rank_math/frontend/robots',
+	function ( $robots ) {
+		$robots['follow'] = 'nofollow';
+		$robots['index']  = 'noindex';
+		return $robots;
+	}
+);
+
 $defaults = array(
-	'block_name'      => '',
-	'the_title'       => '',
-	'the_description' => '',
-	'examples'        => array(),
-	'files'           => array(),
-	'before_content'  => '',
+	'block_name'           => '',
+	'the_title'            => '',
+	'the_description'      => '',
+	'examples'             => array(),
+	'files'                => array(),
+	'block_directory_name' => '',
+	'before_content'       => '',
 );
 $args     = wp_parse_args( $args, $defaults );
 
@@ -33,6 +44,7 @@ if ( ! empty( $args['block_name'] ) ) {
 			'title'           => apply_filters( 'the_title', $found_post->post_title ),
 			'url'             => get_permalink( $found_post ),
 			'post_type_label' => $post_type_obj->labels->singular_name,
+			'post_id'         => '<a href="' . esc_url( get_edit_post_link( $found_post ) ) . '">' . $found_post->ID . '</a>',
 		);
 	}
 
@@ -43,6 +55,32 @@ if ( ! empty( $args['block_name'] ) ) {
 $source_files = array();
 if ( ! is_array( $args['files'] ) ) {
 	$args['files'] = array( $args['files'] );
+}
+
+// Check if source files aren't provided but a block directory is
+if ( empty( $args['files'] ) && ! empty( $args['block_directory_name'] ) ) {
+	$dir_path  = get_template_directory() . '/blocks/' . $args['block_directory_name'] . '/';
+	$directory = new RecursiveDirectoryIterator( $dir_path );
+	$filter    = new RecursiveCallbackFilterIterator(
+		$directory,
+		function ( $current ) {
+			// Skip hidden files and directories.
+			if ( $current->getFilename()[0] === '.' ) {
+				return false;
+			}
+			if ( $current->getExtension() === '' || $current->getExtension() === 'php' ) {
+				// return true;
+			}
+			return true;
+		}
+	);
+	$iterator  = new RecursiveIteratorIterator( $filter );
+	foreach ( $iterator as $file ) {
+		$the_file = $file->getPathname();
+		// Make the file path relative to the theme directory
+		$the_file        = str_replace( get_template_directory(), '', $the_file );
+		$args['files'][] = $the_file;
+	}
 }
 
 // Add the styleguide file to the end of the files list
