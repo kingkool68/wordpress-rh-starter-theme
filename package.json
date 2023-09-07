@@ -5,7 +5,7 @@
   "license": "GPL-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/rh/rh-wp"
+    "url": "https://github.com/kingkool68/wordpress-rh-starter-theme"
   },
   "eslintConfig": {
     "extends": "wordpress",
@@ -18,10 +18,10 @@
     "element-closest": "^3.0.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.20.2",
+    "@babel/core": "^7.22.15",
     "@babel/preset-env": "^7.20.2",
     "@babel/register": "^7.18.9",
-    "@wordpress/eslint-plugin": "^14.0.0",
+    "@wordpress/eslint-plugin": "^15.1.0",
     "beepbeep": "^1.3.0",
     "del": "^7.0.0",
     "eslint": "^8.27.0",
@@ -31,7 +31,7 @@
     "gulp-dart-sass": "^1.0.2",
     "gulp-debug": "^4.0.0",
     "gulp-esbuild": "^0.11.0",
-    "gulp-filter": "^7.0.0",
+    "gulp-filter": "^8.0.0",
     "gulp-join-media-queries": "^1.2.0",
     "gulp-line-ending-corrector": "^1.0.3",
     "gulp-notify": "^4.0.0",
