@@ -74,6 +74,14 @@ class RH_Scripts_And_Styles {
 			$in_footer = true
 		);
 
+		wp_register_script(
+			'vana11y-tabs',
+			get_template_directory_uri() . '/assets/js/vana11y-tabs.js',
+			$deps      = array(),
+			$ver       = null,
+			$in_footer = true
+		);
+
 		if ( defined( 'GA_TRACKING_ID' ) && ! empty( GA_TRACKING_ID ) ) {
 			wp_register_script(
 				'google-analytics',
@@ -183,7 +191,6 @@ class RH_Scripts_And_Styles {
 			$tag = str_replace( "src='", "async src='", $tag );
 		}
 		return $tag;
-
 	}
 }
 
