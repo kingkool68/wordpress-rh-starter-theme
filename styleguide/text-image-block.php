@@ -28,17 +28,13 @@ $right_aligned_args = wp_parse_args(
 );
 
 $args = array(
-	'block_name'      => 'rh-text-image',
-	'the_title'       => 'Text Image Block',
-	'the_description' => 'Derp.',
-	'examples'        => array(
+	'block_name'           => 'rh-text-image',
+	'the_title'            => 'Text Image Block',
+	'the_description'      => 'Derp.',
+	'examples'             => array(
 		'basic'         => RH_Text_Image_Block::render( $basic_args ),
 		'right_aligned' => RH_Text_Image_Block::render( $right_aligned_args ),
 	),
-	'files'           => array(
-		'blocks/text-image-block/class-rh-text-image-block.php',
-		'blocks/text-image-block/text-image-block.twig',
-		'blocks/text-image-block/text-image-block.scss',
-	),
+	'block_directory_name' => 'text-image-block',
 );
 get_template_part( 'styleguide', 'block', $args );
