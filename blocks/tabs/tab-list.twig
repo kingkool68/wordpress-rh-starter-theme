@@ -1,0 +1,12 @@
+<div class="tabs-container js-tabs" data-tabs-prefix-class="rh">
+	<ul class="the-tab-list js-tablist" aria-orientation="vertical">
+		{% for label in labels %}
+			<li class="the-tab js-tablist-item">
+				<a href="#{{ label|sanitize_title|esc_attr }}-tab" class="js-tablist-link">
+					{{ label }}
+				</a>
+			</li>
+		{% endfor %}
+	</ul>
+
+	{# closing </div> is in tabs.twig #}

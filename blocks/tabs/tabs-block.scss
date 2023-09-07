@@ -1,0 +1,50 @@
+@import 'base/_imports.scss';
+
+$_border-radius : rem(12px);
+
+.tabs-container {
+    .the-tab-list {
+        display: flex;
+        justify-content: flex-start;
+        align-items: stretch;
+        margin-bottom: 0;
+
+        .the-tab {
+            margin: 0;
+            list-style-type: none;
+        }
+
+        a {
+            display: block;
+            height: 100%;
+            padding: rem(4px) rem(16px);
+            color: $gray-67;
+            background-color: $gray-10;
+            border-top-right-radius: $_border-radius;
+            border-top-left-radius: $_border-radius;
+            text-decoration: none;
+
+            &[aria-selected="true"] {
+                color: $gray-80;
+                background-color: $manilla;
+            }
+
+            &:hover,
+            &focus {
+                text-decoration: none;
+            }
+        }
+    }
+
+    .tab-panel {
+        background-color: $manilla;
+        border-bottom-left-radius : $_border-radius;
+        border-bottom-right-radius: $_border-radius;
+        border-top-right-radius: $_border-radius;
+        padding: rem(16px);
+    }
+
+    .tab-panel[hidden] {
+        display: none;
+    }
+}
