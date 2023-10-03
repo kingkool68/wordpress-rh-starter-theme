@@ -5,6 +5,13 @@
 class RH_Media {
 
 	/**
+	 * References reconstructed sizes for an attachment
+	 *
+	 * @var array
+	 */
+	public static $image_sizes = null;
+
+	/**
 	 * Get an instance of this class
 	 */
 	public static function get_instance() {
@@ -34,19 +41,26 @@ class RH_Media {
 		add_filter( 'oembed_result', array( $this, 'filter_oembed_lite_youtube' ), 11, 2 );
 		add_filter( 'upload_mimes', array( $this, 'filter_upload_mimes' ), 10 );
 
+		// Prevent WordPress from generating intermediate sizes on upload
+		add_filter( 'intermediate_image_sizes_advanced', '__return_empty_array', 999 );
+		add_filter( 'wp_update_attachment_metadata', array( $this, 'filter_wp_update_attachment_metadata' ), 10, 2 );
+
 		// Tachyon modifications
 		add_filter( 'tachyon_remove_size_attributes', '__return_false' );
 		add_filter( 'tachyon_disable_in_admin', '__return_false' );
 		add_filter( 'tachyon_override_image_downsize', '__return_true' );
-		add_filter( 'tachyon_pre_args', function ( $args ) {
-			if ( !empty( $args['resize'] ) ) {
-				$parts = explode( ',', $args['resize'] );
-				$args['w'] = $parts[0];
-				unset( $args['resize'] );
-			}
+		add_filter(
+			'tachyon_pre_args',
+			function ( $args ) {
+				if ( ! empty( $args['resize'] ) ) {
+					$parts     = explode( ',', $args['resize'] );
+					$args['w'] = $parts[0];
+					unset( $args['resize'] );
+				}
 
-			return $args;
-		} );
+				return $args;
+			}
+		);
 	}
 
 	/**
@@ -71,7 +85,6 @@ class RH_Media {
 			$ver       = null,
 			$in_footer = true
 		);
-
 	}
 
 	/**
@@ -177,6 +190,90 @@ class RH_Media {
 	public function filter_upload_mimes( $mimes = array() ) {
 		$mimes['svg'] = 'image/svg+xml';
 		return $mimes;
+	}
+
+	/**
+	 * Generate our own image sizes for attachment meta data
+	 *
+	 * @param  array   $data    The attachment metadata to modify
+	 * @param  integer $post_id The ID of the attachment post being updated
+	 */
+	public function filter_wp_update_attachment_metadata( $data = array(), $post_id = 0 ) {
+		wp_log( $data );
+		$width         = $data['width'];
+		$height        = $data['height'];
+		$file_name     = basename( $data['file'] );
+		$upload_dir    = wp_upload_dir();
+		$absolute_path = $upload_dir['basedir'] . '/' . $data['file'];
+		$file_size     = $data['filesize'];
+		$mime_type     = wp_check_filetype_and_ext( $absolute_path, $file_name );
+
+		$sizes       = array();
+		$image_sizes = static::get_image_sizes();
+		foreach ( $image_sizes as $key => $image_size ) {
+			$sizes[ $key ] = array(
+				'file'      => $file_name,
+				'width'     => $width,
+				'height'    => $height,
+				'mime-type' => $mime_type['type'],
+				'filesize'  => $file_size,
+			);
+		}
+		$data['sizes'] = $sizes;
+		return $data;
+	}
+
+	/**
+	 * Get a list of image sizes registered with WordPress
+	 */
+	public static function get_image_sizes() {
+		if ( static::$image_sizes !== null ) {
+			return static::$image_sizes;
+		}
+
+		$_wp_additional_image_sizes = wp_get_additional_image_sizes();
+		$sizes                      = array();
+		/*
+		 * Remove filter preventing WordPress from reading the sizes, it's meant
+		 * to prevent creation of intermediate files, which are not really being used.
+		 */
+		remove_filter( 'intermediate_image_sizes', '__return_empty_array' );
+		$intermediate_image_sizes = get_intermediate_image_sizes();
+		add_filter( 'intermediate_image_sizes', '__return_empty_array' );
+		foreach ( $intermediate_image_sizes as $s ) {
+			$sizes[ $s ] = array(
+				'width'  => '',
+				'height' => '',
+				'crop'   => false,
+			);
+			if ( isset( $_wp_additional_image_sizes[ $s ]['width'] ) ) {
+				// For theme-added sizes.
+				$sizes[ $s ]['width'] = intval( $_wp_additional_image_sizes[ $s ]['width'] );
+			} else {
+				// For default sizes set in options.
+				$sizes[ $s ]['width'] = get_option( "{$s}_size_w" );
+			}
+
+			if ( isset( $_wp_additional_image_sizes[ $s ]['height'] ) ) {
+				// For theme-added sizes.
+				$sizes[ $s ]['height'] = intval( $_wp_additional_image_sizes[ $s ]['height'] );
+			} else {
+				// For default sizes set in options.
+				$sizes[ $s ]['height'] = get_option( "{$s}_size_h" );
+			}
+
+			if ( isset( $_wp_additional_image_sizes[ $s ]['crop'] ) ) {
+				// For theme-added sizes.
+				$sizes[ $s ]['crop'] = $_wp_additional_image_sizes[ $s ]['crop'];
+			} else {
+				// For default sizes set in options.
+				$sizes[ $s ]['crop'] = get_option( "{$s}_crop" );
+			}
+		}
+
+		static::$image_sizes = $sizes;
+
+		return $sizes;
 	}
 
 	/**
