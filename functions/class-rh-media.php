@@ -199,7 +199,6 @@ class RH_Media {
 	 * @param  integer $post_id The ID of the attachment post being updated
 	 */
 	public function filter_wp_update_attachment_metadata( $data = array(), $post_id = 0 ) {
-		wp_log( $data );
 		$width         = $data['width'];
 		$height        = $data['height'];
 		$file_name     = basename( $data['file'] );
@@ -210,11 +209,12 @@ class RH_Media {
 
 		$sizes       = array();
 		$image_sizes = static::get_image_sizes();
-		foreach ( $image_sizes as $key => $image_size ) {
-			$sizes[ $key ] = array(
+		foreach ( $image_sizes as $key => $image ) {
+			$the_dimensions = wp_constrain_dimensions( $image['width'], $image['height'], $width, $height );
+			$sizes[ $key ]  = array(
 				'file'      => $file_name,
-				'width'     => $width,
-				'height'    => $height,
+				'width'     => $the_dimensions[0],
+				'height'    => $the_dimensions[1],
 				'mime-type' => $mime_type['type'],
 				'filesize'  => $file_size,
 			);
