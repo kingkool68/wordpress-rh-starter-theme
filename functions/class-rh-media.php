@@ -41,27 +41,29 @@ class RH_Media {
 		add_filter( 'oembed_result', array( $this, 'filter_oembed_lite_youtube' ), 11, 2 );
 		add_filter( 'upload_mimes', array( $this, 'filter_upload_mimes' ), 10 );
 
-		// Remove intermediate sizes only if we're uploading an image
-		add_filter( 'intermediate_image_sizes_advanced', array( $this, 'filter_intermediate_image_sizes_advanced' ), 999 );
-		add_filter( 'wp_update_attachment_metadata', array( $this, 'filter_wp_update_attachment_metadata' ), 10, 2 );
-		add_filter( 'image_downsize', array( $this, 'filter_image_resize' ), 5, 3 );
+		if ( defined( 'TACHYON_URL' ) && ! empty( TACHYON_URL ) ) {
+			// Remove intermediate sizes only if we're uploading an image
+			add_filter( 'intermediate_image_sizes_advanced', array( $this, 'filter_intermediate_image_sizes_advanced' ), 999 );
+			add_filter( 'wp_update_attachment_metadata', array( $this, 'filter_wp_update_attachment_metadata' ), 10, 2 );
+			add_filter( 'image_downsize', array( $this, 'filter_image_resize' ), 5, 3 );
 
-		// Tachyon modifications
-		add_filter( 'tachyon_remove_size_attributes', '__return_false' );
-		add_filter( 'tachyon_disable_in_admin', '__return_false' );
-		add_filter( 'tachyon_override_image_downsize', '__return_true' );
-		add_filter(
-			'tachyon_pre_args',
-			function ( $args ) {
-				if ( ! empty( $args['resize'] ) ) {
-					$parts     = explode( ',', $args['resize'] );
-					$args['w'] = $parts[0];
-					unset( $args['resize'] );
+			// Tachyon modifications
+			add_filter( 'tachyon_remove_size_attributes', '__return_false' );
+			add_filter( 'tachyon_disable_in_admin', '__return_false' );
+			add_filter( 'tachyon_override_image_downsize', '__return_true' );
+			add_filter(
+				'tachyon_pre_args',
+				function ( $args ) {
+					if ( ! empty( $args['resize'] ) ) {
+						$parts     = explode( ',', $args['resize'] );
+						$args['w'] = $parts[0];
+						unset( $args['resize'] );
+					}
+
+					return $args;
 				}
-
-				return $args;
-			}
-		);
+			);
+		}
 	}
 
 	/**
