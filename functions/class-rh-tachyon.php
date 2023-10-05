@@ -91,8 +91,18 @@ class RH_Tachyon {
 		$sizes       = array();
 		$image_sizes = RH_Media::get_image_sizes();
 		foreach ( $image_sizes as $key => $image ) {
-			$the_dimensions = wp_constrain_dimensions( $width, $height, $image['width'], $image['height'] );
-			$sizes[ $key ]  = array(
+			if ( $image['crop'] ) {
+				if ( $width < $image['width'] && $height < $image['height'] ) {
+					continue;
+				}
+				$the_dimensions = array(
+					$image['width'],
+					$image['height'],
+				);
+			} else {
+				$the_dimensions = wp_constrain_dimensions( $width, $height, $image['width'], $image['height'] );
+			}
+			$sizes[ $key ] = array(
 				'file'      => $file_name,
 				'width'     => $the_dimensions[0],
 				'height'    => $the_dimensions[1],
