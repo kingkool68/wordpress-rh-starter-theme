@@ -23,6 +23,7 @@ $files_to_require = array(
 	'class-rh-menus.php',
 	'class-rh-breadcrumbs.php',
 	'class-rh-media.php',
+	'class-rh-tachyon.php',
 	'class-rh-scripts-and-styles.php',
 	'class-rh-search.php',
 	'class-rh-slack.php',
@@ -126,7 +127,7 @@ add_filter( 'sprig/twig/functions', 'filter_sprig_twig_functions' );
  */
 add_action(
 	'init',
-	function() {
+	function () {
 		add_theme_support( 'title-tag' );
 	}
 );
