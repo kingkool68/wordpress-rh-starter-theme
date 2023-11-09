@@ -81,6 +81,9 @@ class RH_Posts {
 	 * @param object|WP_Post $post Post data that was recently updated
 	 */
 	public function action_wp_after_insert_post( $post_id = 0, $post = null ) {
+		if ( ! function_exists( 'get_field' ) ) {
+			return;
+		}
 		$field_name       = 'field_processing_options_markdown';
 		$process_markdown = get_field( $field_name, $post_id );
 		if ( empty( $process_markdown ) ) {
