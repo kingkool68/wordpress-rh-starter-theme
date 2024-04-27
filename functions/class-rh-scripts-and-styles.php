@@ -23,6 +23,7 @@ class RH_Scripts_And_Styles {
 	public function setup_actions() {
 		add_action( 'init', array( $this, 'action_init' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'action_wp_enqueue_scripts' ) );
+		add_action( 'enqueue_block_editor_assets', array( $this, 'action_enqueue_block_editor_assets' ) );
 		add_action( 'wp_default_scripts', array( $this, 'action_wp_default_scripts' ) );
 
 		// We want styles to come after scripts in the <head>
@@ -60,6 +61,14 @@ class RH_Scripts_And_Styles {
 			array(),
 			null,
 			'all'
+		);
+
+		wp_register_script(
+			'rh-editor',
+			get_template_directory_uri() . '/assets/js/admin/editor.js',
+			$deps      = array( 'jquery' ),
+			$ver       = null,
+			$in_footer = true
 		);
 
 		// Don't load the WP Embed script. See https://wordpress.stackexchange.com/a/285907/2744
@@ -111,6 +120,13 @@ class RH_Scripts_And_Styles {
 		wp_dequeue_script( 'automatic-upload-images' );
 
 		wp_enqueue_script( 'instant.page' );
+	}
+
+	/**
+	 * Enqueue assets when the block editor is loaded
+	 */
+	public function action_enqueue_block_editor_assets() {
+		wp_enqueue_script( 'rh-editor' );
 	}
 
 	/**
