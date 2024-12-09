@@ -57,3 +57,32 @@ $scrimStops: 0% 0%, 26.2% 19%, 45.9% 34%, 61.8% 47%, 72.2% 56.5%, 80.6% 65%, 87.
 
   @return linear-gradient(#{nth($args, 1)}, #{getColorStops(nth($args, 2), nth($args, 3))});
 }
+
+/**
+ * Fluid calculation via clamp()
+ *
+ * @via https://www.smashingmagazine.com/2022/10/fluid-typography-clamp-sass-functions/
+ */
+$default-fluid-min-bp: 480px;
+$default-fluid-max-bp: 1040px;
+
+@function round($number, $decimals: 0) {
+  $n: 1;
+
+  @if $decimals >0 {
+    @for $i from 1 through $decimals {
+      $n: $n * 10;
+    }
+  }
+
+  @return math.div(math.round($number * $n), $n);
+}
+
+@function fluid($min-size, $max-size, $min-breakpoint: $default-fluid-min-bp, $max-breakpoint: $default-fluid-max-bp, $unit: vw) {
+  $slope: math.div($max-size - $min-size, $max-breakpoint - $min-breakpoint);
+  $slope-to-unit: round($slope * 100, 3);
+  $intercept-rem: round(rem($min-size - $slope * $min-breakpoint), 3);
+  $min-size-rem: round(rem($min-size), 3);
+  $max-size-rem: round(rem($max-size), 3);
+  @return clamp(#{$min-size-rem}, #{$intercept-rem} + #{$slope-to-unit}#{$unit}, #{$max-size-rem});
+}
