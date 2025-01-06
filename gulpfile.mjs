@@ -80,7 +80,7 @@ gulp.task( 'styles', function() {
 				errLogToConsole: config.errLogToConsole,
 				outputStyle: config.outputStyle,
 				precision: config.precision,
-				includePaths: config.includePaths,
+				loadPaths: config.loadPaths,
 			})
 		)
 		.on( 'error', sass.logError )
@@ -113,12 +113,6 @@ gulp.task( 'scripts', function() {
 			base: config.scriptBase,
 		})
 		.pipe(
-			rename(function (path) {
-				path.basename = path.basename.replace('.src', '');
-				return path;
-			})
-		)
-		.pipe(
 			plumber({
 				errorHandler: function( err ) {
 					notify.onError( 'Error: <%= error.message %>' )( err );
@@ -142,6 +136,12 @@ gulp.task( 'scripts', function() {
 						}
 					]
 				]
+			})
+		)
+		.pipe(
+			rename(function (path) {
+				path.basename = path.basename.replace('.src', '');
+				return path;
 			})
 		)
 		.pipe( remember( 'scripts' ) ) // Bring all files back to stream

@@ -20,7 +20,7 @@ module.exports = {
 	outputStyle: 'compressed', // Available options → 'compact' or 'compressed' or 'nested' or 'expanded'
 	errLogToConsole: true,
 	precision: 10,
-	includePaths: ['./assets/scss'], // Tell Sass where to look for @import statements
+	loadPaths: ['./assets/scss'], // Tell Sass where to look for @import statements
 
 	// JS Custom options.
 	scriptSRC: ['./**/*.src.js', '!./vendor/', '!./node_modules/' ], // Globs of scripts to process.
