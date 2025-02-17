@@ -8,9 +8,9 @@
 
     .next-link,
     .previous-link {
-        font-size: rem(14px);
+        font-size: _rem(14px);
         color: $logo-red;
-        padding: rem(32px) rem(16px);
+        padding: _rem(32px) _rem(16px);
 
         display: flex;
         align-items: center;
@@ -20,7 +20,7 @@
         order: 3;
 
         .icon {
-            margin-left: rem(4px);
+            margin-left: _rem(4px);
         }
     }
 
@@ -28,7 +28,7 @@
         order: 1;
 
         .icon {
-            margin-right: rem(4px);
+            margin-right: _rem(4px);
         }
 
         .icon-right-arrow {
@@ -40,7 +40,7 @@
     .disabled {
         visibility: hidden; // Keeps the layout evenly divided into 3rds at larger screens
 
-        @media(max-width: em(920px)) {
+        @media(max-width: _em(920px)) {
             display: none;
         }
     }
@@ -55,8 +55,8 @@
 
     .link-item {
         display: block;
-        padding: rem(32px) rem(16px);
-        font-size: rem(14px);
+        padding: _rem(32px) _rem(16px);
+        font-size: _rem(14px);
         color: $logo-red;
         height: 0;
         text-align: center;

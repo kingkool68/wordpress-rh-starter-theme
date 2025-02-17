@@ -1,32 +1,32 @@
 @import 'base/_imports.scss';
 
-$_breakpoint: em(800px);
+$_breakpoint: _em(800px);
 
 .text-image-block {
-    margin: rem(64px) calc(50% - 50vw);
+    margin: _rem(64px) calc(50% - 50vw);
 
     @media(max-width: $_breakpoint) {
-        margin-top: rem(32px);
-        margin-bottom: rem(32px);
-        padding: 0 rem(16px);
+        margin-top: _rem(32px);
+        margin-bottom: _rem(32px);
+        padding: 0 _rem(16px);
     }
 
     .inner {
-        max-width: rem(720px);
+        max-width: _rem(720px);
         margin-left: auto;
         margin-right: auto;
         display: flex;
         align-items: center;
-        padding: rem(32px) rem(16px);
+        padding: _rem(32px) _rem(16px);
 
         @media(max-width: $_breakpoint) {
             display: block;
-            padding: rem(16px);
+            padding: _rem(16px);
         }
     }
 
     .media {
-        padding-right: rem(32px);
+        padding-right: _rem(32px);
     }
 
     .kicker {
@@ -47,7 +47,7 @@ $_breakpoint: em(800px);
 
         .media {
             padding-right: 0;
-            padding-left: rem(32px);
+            padding-left: _rem(32px);
         }
     }
 }

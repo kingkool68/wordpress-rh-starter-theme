@@ -12,7 +12,7 @@
 .skip-to-content-link {
   background-color: $logo-red;
   color: $white;
-  padding: rem(12px);
+  padding: _rem(12px);
 }
 
 .admin-bar .skip-to-content-link {
@@ -22,7 +22,7 @@
 // Smarter focus styles for keyboard-centric navigation. See https://css-tricks.com/keyboard-only-focus-styles/
 :focus,
 :focus-visible {
-  outline: $logo-red auto rem(1px);
+  outline: $logo-red auto _rem(1px);
 }
 
 :focus:not(:focus-visible) {

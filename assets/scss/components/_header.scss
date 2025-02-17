@@ -1,14 +1,14 @@
-$_breakpoint : em(960px);
+$_breakpoint : _em(960px);
 
 // Ensure anchor links don't get covered by the sticky header
 // See https://stackoverflow.com/a/58890319/1119655
 @mixin anchor_link_offset {
-    padding-top: rem($header_height + 5px); // 5px buffer
-    margin-top: rem($header_height + 5px) * -1;
+    padding-top: _rem($header_height + 5px); // 5px buffer
+    margin-top: _rem($header_height + 5px) * -1;
 
     .admin-bar & {
-        padding-top: rem($header_height + $admin_bar_height + 5px); // 5px buffer
-        margin-top: rem($header_height + $admin_bar_height + 5px) * -1;
+        padding-top: _rem($header_height + $admin_bar_height + 5px); // 5px buffer
+        margin-top: _rem($header_height + $admin_bar_height + 5px) * -1;
     }
 }
 
@@ -32,15 +32,15 @@ h6[id] {
         justify-content: space-between;
         align-items: center;
 
-        @media(max-width: em(610px)) {
+        @media(max-width: _em(610px)) {
             justify-content: center;
         }
     }
 
     .separator {
-        padding: 0 rem(4px);
+        padding: 0 _rem(4px);
 
-        @media(max-width: em(610px)) {
+        @media(max-width: _em(610px)) {
             display: none;
         }
     }
@@ -48,10 +48,10 @@ h6[id] {
     a {
         display: inline-flex;
         align-items: center;
-        padding: rem(16px) 0;
+        padding: _rem(16px) 0;
         text-decoration: underline;
 
-        @media(max-width: em(610px)) {
+        @media(max-width: _em(610px)) {
             & {
                 display: none;
             }
@@ -65,18 +65,18 @@ h6[id] {
         }
 
         .icon {
-            font-size: rem(26px);
-            margin-right: rem(8px);
+            font-size: _rem(26px);
+            margin-right: _rem(8px);
         }
     }
 
     strong {
-        padding-left: rem(8px);
+        padding-left: _rem(8px);
     }
 }
 
 .site-header {
-    border-bottom: rem(1px) solid $gray-15;
+    border-bottom: _rem(1px) solid $gray-15;
     background-color: $white;
     top: 0;
     position: sticky;
@@ -84,13 +84,13 @@ h6[id] {
     z-index: 100;
 
     .admin-bar & {
-        top: rem(32px);
+        top: _rem(32px);
 
-        @media(max-width: em(782px)) {
-            top: rem(46px);
+        @media(max-width: _em(782px)) {
+            top: _rem(46px);
         }
 
-        @media(max-width: em(600px)) {
+        @media(max-width: _em(600px)) {
             top: 0;
         }
     }
@@ -98,7 +98,7 @@ h6[id] {
     .inner {
         max-width: 95%;
         margin: 0 auto;
-        padding: 0 rem(16px);
+        padding: 0 _rem(16px);
         display: flex;
         align-items: center;
 
@@ -109,12 +109,12 @@ h6[id] {
 
     .logo-link {
         display: block;
-        padding: rem(18px) 0;
-        margin-right: rem(16px);
+        padding: _rem(18px) 0;
+        margin-right: _rem(16px);
     }
 
     .logo {
-        font-size: rem(140px);
+        font-size: _rem(140px);
     }
 
     .nav-container {
@@ -123,10 +123,10 @@ h6[id] {
         width: 100%;
 
         .admin-bar & {
-            top: rem(32px);
+            top: _rem(32px);
 
-            @media(max-width: em(782px)) {
-                top: rem(46px);
+            @media(max-width: _em(782px)) {
+                top: _rem(46px);
             }
         }
     }
@@ -134,13 +134,13 @@ h6[id] {
     .mobile-menu-trigger {
         display: none;
 
-        font-size: rem(12px);
+        font-size: _rem(12px);
         text-transform: uppercase;
 
         .icon {
             display: block;
             margin: 0 auto;
-            font-size: rem(28px);
+            font-size: _rem(28px);
         }
     }
 
@@ -150,8 +150,8 @@ h6[id] {
         position: absolute;
         top: 0;
         right: 0;
-        font-size: rem(30px);
-        padding: rem(12px);
+        font-size: _rem(30px);
+        padding: _rem(12px);
         background: $white;
         border: 0 none;
         z-index: 99;
@@ -181,12 +181,12 @@ h6[id] {
 
         a {
             display: block;
-            font-size: rem(16px);
-            padding: rem(28px) rem(24px);
+            font-size: _rem(16px);
+            padding: _rem(28px) _rem(24px);
             color: $gray-60;
 
             @media(max-width: $_breakpoint) {
-                padding: rem(16px) rem(12px);
+                padding: _rem(16px) _rem(12px);
             }
 
             &:hover,
@@ -199,7 +199,7 @@ h6[id] {
     .top-level.has-children {
         >a:after {
             content: '▾';
-            margin-left: rem(4px);
+            margin-left: _rem(4px);
             color: $gray-60;
         }
 
@@ -213,23 +213,23 @@ h6[id] {
         display: none;
 
         background: $white;
-        border: rem(1px) solid $gray-05;
-        border-bottom: rem(1px) solid $gray-15;
-        border-right: rem(1px) solid $gray-15;
-        border-radius: rem(5px);
+        border: _rem(1px) solid $gray-05;
+        border-bottom: _rem(1px) solid $gray-15;
+        border-right: _rem(1px) solid $gray-15;
+        border-radius: _rem(5px);
         visibility: hidden;
         opacity: 0;
-        min-width: rem(220px);
+        min-width: _rem(220px);
         white-space: nowrap;
         position: absolute;
         transition: all 0.5s ease;
         left: 0;
         z-index: 999;
-        box-shadow: rem(1px) rem(1px) rem(3px) rem(2px) rgba(0, 0, 0, 0.1);
+        box-shadow: _rem(1px) _rem(1px) _rem(3px) _rem(2px) rgba(0, 0, 0, 0.1);
     }
 
     .sub-menu .sub-menu {
-        left: rem(220px);
+        left: _rem(220px);
         top: 15%;
     }
 
@@ -268,7 +268,7 @@ h6[id] {
 
         .nav {
             flex-direction: column;
-            margin-top: rem(64px); // Add space for the buttons to fit up top
+            margin-top: _rem(64px); // Add space for the buttons to fit up top
         }
 
         .mobile-menu-trigger {
@@ -293,7 +293,7 @@ h6[id] {
             visibility: visible;
             box-shadow: none;
             position: static;
-            padding-left: rem(16px);
+            padding-left: _rem(16px);
             border: 0 none;
         }
     }
