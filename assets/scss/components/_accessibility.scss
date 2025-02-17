@@ -1,3 +1,5 @@
+@use 'base/_imports.scss' as *;
+
 // For text that needs to be hidden visually but still available to screen readers
 // See https://make.wordpress.org/accessibility/2015/02/09/hiding-text-for-screen-readers-with-wordpress-core/
 
@@ -12,7 +14,7 @@
 .skip-to-content-link {
   background-color: $logo-red;
   color: $white;
-  padding: rem(12px);
+  padding: rem_(12px);
 }
 
 .admin-bar .skip-to-content-link {
@@ -22,7 +24,7 @@
 // Smarter focus styles for keyboard-centric navigation. See https://css-tricks.com/keyboard-only-focus-styles/
 :focus,
 :focus-visible {
-  outline: $logo-red auto rem(1px);
+  outline: $logo-red auto rem_(1px);
 }
 
 :focus:not(:focus-visible) {

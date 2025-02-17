@@ -1,32 +1,34 @@
 @use "sass:math";
+@use "sass:list";
+@use "sass:color";
 
 // via https://css-tricks.com/snippets/sass/px-to-em-functions/
 $browser-context: 16;
 
-@function em($pixels, $context: $browser-context) {
-  @if (unitless($pixels)) {
-    $pixels: $pixels * 1px;
-  }
+@function em_($pixels, $context: $browser-context) {
+	@if (math.is-unitless($pixels)) {
+		$pixels: $pixels * 1px;
+	}
 
-  @if (unitless($context)) {
-    $context: $context * 1px;
-  }
+	@if (math.is-unitless($context)) {
+		$context: $context * 1px;
+	}
 
-  @return math.div($pixels, $context) * 1em;
+	@return math.div($pixels, $context) * 1em;
 }
 
-@function rem($pixels) {
-  @if (unitless($pixels)) {
-    $pixels: $pixels * 1px;
-  }
+@function rem_($pixels) {
+	@if (math.is-unitless($pixels)) {
+		$pixels: $pixels * 1px;
+	}
 
-  $context: $browser-context;
+	$context: $browser-context;
 
-  @if (unitless($context)) {
-    $context: $context * 1px;
-  }
+	@if (math.is-unitless($context)) {
+		$context: $context * 1px;
+	}
 
-  @return math.div($pixels, $context) * 1rem;
+	@return math.div($pixels, $context ) * 1rem;
 }
 
 /**
@@ -37,25 +39,26 @@ $browser-context: 16;
 $scrimStops: 0% 0%, 26.2% 19%, 45.9% 34%, 61.8% 47%, 72.2% 56.5%, 80.6% 65%, 87.4% 73%, 92.5% 80.2%, 95.8% 86.1%, 97.9% 91%, 99.2% 95.2%, 99.8% 98.2%, 100% 100%;
 
 @function getColorStop($colorTo, $colorFrom, $weight, $stop) {
-  @return mix($colorFrom, $colorTo, $weight) $stop;
+	@return color.mix($colorFrom, $colorTo, $weight) $stop;
 }
 
 @function getColorStops($colorTo, $colorFrom) {
-  $stops: ();
+	$stops: (
+	);
 
-  @each $scrimStop in $scrimStops {
-    $stops: append($stops, getColorStop($colorTo, $colorFrom, nth($scrimStop, 1), nth($scrimStop, 2)), comma)
-  }
+@each $scrimStop in $scrimStops {
+	$stops: list.append($stops, getColorStop($colorTo, $colorFrom, list.nth($scrimStop, 1), list.nth($scrimStop, 2)), comma)
+}
 
-  @return $stops;
+@return $stops;
 }
 
 @function scrim-linear-gradient($args...) {
-  @if (length($args)==2) {
-    @return linear-gradient(#{getColorStops(nth($args, 1), nth($args, 2))});
-  }
+	@if (list.length($args)==2) {
+		@return linear-gradient(#{getColorStops(list.nth($args, 1), list.nth($args, 2))});
+	}
 
-  @return linear-gradient(#{nth($args, 1)}, #{getColorStops(nth($args, 2), nth($args, 3))});
+	@return linear-gradient(#{list.nth($args, 1)}, #{getColorStops(list.nth($args, 2), list.nth($args, 3))});
 }
 
 /**
@@ -67,22 +70,22 @@ $default-fluid-min-bp: 480px;
 $default-fluid-max-bp: 1040px;
 
 @function round($number, $decimals: 0) {
-  $n: 1;
+	$n: 1;
 
-  @if $decimals >0 {
-    @for $i from 1 through $decimals {
-      $n: $n * 10;
-    }
-  }
+	@if $decimals >0 {
+		@for $i from 1 through $decimals {
+			$n: $n * 10;
+		}
+	}
 
-  @return math.div(math.round($number * $n), $n);
+	@return math.div(math.round($number * $n), $n);
 }
 
 @function fluid($min-size, $max-size, $min-breakpoint: $default-fluid-min-bp, $max-breakpoint: $default-fluid-max-bp, $unit: vw) {
-  $slope: math.div($max-size - $min-size, $max-breakpoint - $min-breakpoint);
-  $slope-to-unit: round($slope * 100, 3);
-  $intercept-rem: round(rem($min-size - $slope * $min-breakpoint), 3);
-  $min-size-rem: round(rem($min-size), 3);
-  $max-size-rem: round(rem($max-size), 3);
-  @return clamp(#{$min-size-rem}, #{$intercept-rem} + #{$slope-to-unit}#{$unit}, #{$max-size-rem});
+	$slope: math.div($max-size - $min-size, $max-breakpoint - $min-breakpoint);
+	$slope-to-unit: round($slope * 100, 3);
+	$intercept-rem: round(rem_($min-size - $slope * $min-breakpoint), 3);
+	$min-size-rem: round(rem_($min-size), 3);
+	$max-size-rem: round(rem_($max-size), 3);
+	@return clamp(#{$min-size-rem}, #{$intercept-rem} + #{$slope-to-unit}#{$unit}, #{$max-size-rem});
 }

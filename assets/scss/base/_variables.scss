@@ -5,7 +5,7 @@ $mono-font      : 'Roboto Mono', Menlo, 'Ubuntu Mono', Monaco, Consolas, 'source
 $helvetica-font : 'Helvetica Neue', Helvetica, Arial, sans-serif;
 $system         : -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 
-$maximum-page-width: rem(1440px);
+$maximum-page-width: rem_(1440px);
 
 $header_height: 72px;
 $admin_bar_height: 32px;

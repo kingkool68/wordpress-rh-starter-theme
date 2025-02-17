@@ -1,22 +1,22 @@
-@import 'base/_imports.scss';
+@forward 'base/_imports.scss';
+// @use 'base/_fonts.scss'; // Fonts should only be imported in a global stylesheet
 
-@import 'components/_fonts.scss';
-@import 'components/_reset.scss';
-@import 'components/_accessibility.scss';
-@import 'components/_visibility.scss';
+@use 'components/_reset.scss';
+@use 'components/_accessibility.scss';
+@use 'components/_visibility.scss';
 
-@import 'components/_general.scss';
-@import 'components/_wysiwyg.scss';
-@import 'components/_media.scss';
-@import 'components/_svg.scss';
+@use 'components/_general.scss';
+@use 'components/_wysiwyg.scss';
+@use 'components/_media.scss';
+@use 'components/_svg.scss';
 
 
-@import 'components/_header.scss';
-@import 'components/_footer.scss';
+@use 'components/_header.scss';
+@use 'components/_footer.scss';
 
-@import 'components/_pagination.scss';
-@import 'components/_breadcrumbs.scss';
+@use 'components/_pagination.scss';
+@use 'components/_breadcrumbs.scss';
 
-@import 'components/_page.scss';
-@import 'components/_single-post.scss';
-@import 'components/_post-archive-item.scss';
+@use 'components/_page.scss';
+@use 'components/_single-post.scss';
+@use 'components/_post-archive-item.scss';

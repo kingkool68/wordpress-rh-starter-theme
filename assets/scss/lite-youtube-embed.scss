@@ -1,4 +1,4 @@
-@import 'base/_imports.scss';
+@use 'base/_imports.scss' as *;
 
 // See https://github.com/paulirish/lite-youtube-embed
 lite-youtube {
@@ -9,7 +9,7 @@ lite-youtube {
     background-position: center center;
     background-size: cover;
     cursor: pointer;
-    box-shadow: 0 rem(2px) rem(4px) 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 rem_(2px) rem_(4px) 0 rgba(0, 0, 0, 0.2);
 }
 
 /* gradient */
@@ -21,8 +21,8 @@ lite-youtube::before {
     background: scrim-linear-gradient( $gray-67, transparent );
     background-position: top;
     background-repeat: repeat-x;
-    height: rem(60px);
-    padding-bottom: rem(50px);
+    height: rem_(60px);
+    padding-bottom: rem_(50px);
     width: 100%;
     transition: all 0.2s cubic-bezier(0, 0, 0.2, 1);
 }
@@ -47,8 +47,8 @@ lite-youtube>iframe {
 
 /* play button */
 lite-youtube>.lty-playbtn {
-    width: rem(68px);
-    height: rem(48px);
+    width: rem_(68px);
+    height: rem_(48px);
     position: absolute;
     cursor: pointer;
     transform: translate3d(-50%, -50%, 0);

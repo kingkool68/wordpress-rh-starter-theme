@@ -1,3 +1,5 @@
+@use 'base/_imports.scss' as *;
+
 .pagination {
     display: flex;
     flex-direction: row;
@@ -8,9 +10,9 @@
 
     .next-link,
     .previous-link {
-        font-size: rem(14px);
+        font-size: rem_(14px);
         color: $logo-red;
-        padding: rem(32px) rem(16px);
+        padding: rem_(32px) rem_(16px);
 
         display: flex;
         align-items: center;
@@ -20,7 +22,7 @@
         order: 3;
 
         .icon {
-            margin-left: rem(4px);
+            margin-left: rem_(4px);
         }
     }
 
@@ -28,7 +30,7 @@
         order: 1;
 
         .icon {
-            margin-right: rem(4px);
+            margin-right: rem_(4px);
         }
 
         .icon-right-arrow {
@@ -40,7 +42,7 @@
     .disabled {
         visibility: hidden; // Keeps the layout evenly divided into 3rds at larger screens
 
-        @media(max-width: em(920px)) {
+        @media(max-width: em_(920px)) {
             display: none;
         }
     }
@@ -55,8 +57,8 @@
 
     .link-item {
         display: block;
-        padding: rem(32px) rem(16px);
-        font-size: rem(14px);
+        padding: rem_(32px) rem_(16px);
+        font-size: rem_(14px);
         color: $logo-red;
         height: 0;
         text-align: center;

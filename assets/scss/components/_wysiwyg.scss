@@ -1,39 +1,41 @@
+@use 'base/_imports.scss' as *;
+
 // For styling text content that was composed in the WYSIWYG editor where we can style elements directly
 .wysiwyg {
     h1 {
         @include h1;
-        margin-bottom: rem(22px);
+        margin-bottom: rem_(22px);
     }
 
     h2 {
         @include h2;
-        margin-bottom: rem(23px);
+        margin-bottom: rem_(23px);
     }
 
     h3 {
         @include h3;
-        margin-bottom: rem(24px);
+        margin-bottom: rem_(24px);
     }
 
     h4 {
         @include h4;
-        margin-bottom: rem(27px);
+        margin-bottom: rem_(27px);
     }
 
     h5 {
         @include h5;
-        margin-bottom: rem(27px);
+        margin-bottom: rem_(27px);
     }
 
     h6 {
         @include h6;
-        margin-bottom: rem(30px);
+        margin-bottom: rem_(30px);
     }
 
     p {
-        font-size: rem(16px);
+        font-size: rem_(16px);
         line-height: 1.6;
-        margin-bottom: rem(16px);
+        margin-bottom: rem_(16px);
     }
 
     abbr {
@@ -47,40 +49,40 @@
 
     pre {
         font-family: $mono-font;
-        font-size: rem(14px);
+        font-size: rem_(14px);
         line-height: 1.3;
         white-space: pre-wrap;
 
         &>p {
-            font-size: rem(14px);
+            font-size: rem_(14px);
         }
     }
 
     code {
         font-family: $mono-font;
-        font-size: rem(14px);
+        font-size: rem_(14px);
         line-height: 1.3;
-        border-radius: rem(3px);
+        border-radius: rem_(3px);
         background-color: $gray-05;
-        padding: rem(3px);
+        padding: rem_(3px);
     }
 
     .wp-block-code {
-        margin-bottom: rem(16px);
+        margin-bottom: rem_(16px);
 
         .hljs {
-            padding: rem(24px);
+            padding: rem_(24px);
         }
     }
 
     blockquote {
-        margin: 0 0 rem(16px);
-        border: rem(1px) solid $gray-10;
-        border-radius: rem(4px);
-        padding: rem(28px);
+        margin: 0 0 rem_(16px);
+        border: rem_(1px) solid $gray-10;
+        border-radius: rem_(4px);
+        padding: rem_(28px);
 
         >* {
-            font-size: rem(16px);
+            font-size: rem_(16px);
         }
 
         >:last-child {
@@ -122,14 +124,14 @@
     }
 
     ul {
-        margin-bottom: rem(16px);
+        margin-bottom: rem_(16px);
         counter-reset: index;
 
         li {
-            font-size: rem(16px);
+            font-size: rem_(16px);
             line-height: 1.5;
-            margin-left: rem(45px);
-            margin-bottom: rem(10px);
+            margin-left: rem_(45px);
+            margin-bottom: rem_(10px);
             list-style-type: disc;
         }
 
@@ -140,14 +142,14 @@
     }
 
     ol {
-        margin-bottom: rem(16px);
+        margin-bottom: rem_(16px);
 
         li {
             list-style-type: decimal;
-            font-size: rem(16px);
+            font-size: rem_(16px);
             line-height: 1.5;
-            margin-left: rem(30px);
-            margin-bottom: rem(10px);
+            margin-left: rem_(30px);
+            margin-bottom: rem_(10px);
         }
 
         ul li {
@@ -184,23 +186,23 @@
         display: flex;
         flex-direction: column;
         flex-wrap: wrap;
-        margin: rem(16px) auto rem(38px);
+        margin: rem_(16px) auto rem_(38px);
 
         &.extra-wide {
             border: 0 none;
-            margin: rem(80px) calc(50% - 49vw);
+            margin: rem_(80px) calc(50% - 49vw);
 
             img {
                 display: block;
                 margin: 0 auto;
-                max-width: rem(1080px);
+                max-width: rem_(1080px);
                 width: 100%;
             }
         }
 
         figcaption {
-            font-size: rem(15px);
-            padding-top: rem(8px);
+            font-size: rem_(15px);
+            padding-top: rem_(8px);
         }
 
         // If the image is centered aligned, center the image caption
@@ -221,23 +223,23 @@
         }
 
         figcaption {
-            font-size: rem(15px);
-            padding-top: rem(8px);
+            font-size: rem_(15px);
+            padding-top: rem_(8px);
         }
     }
 
     .wp-block-columns {
         display: flex;
 
-        @media (max-width: em(680px)) {
+        @media (max-width: em_(680px)) {
             display: block;
         }
 
         .wp-block-column {
             flex: 1;
-            margin-left: rem(20px);
+            margin-left: rem_(20px);
 
-            @media (max-width: em(680px)) {
+            @media (max-width: em_(680px)) {
                 margin-left: 0;
             }
 
@@ -250,10 +252,10 @@
     .wp-block-table {
         display: block;
         width: 100%;
-        margin-bottom: rem(24px);
+        margin-bottom: rem_(24px);
         overflow-x: auto;
-        border-radius: rem(4px);
-        border: rem(1px) solid $gray-15;
+        border-radius: rem_(4px);
+        border: rem_(1px) solid $gray-15;
 
         table {
             display: table;
@@ -263,11 +265,11 @@
 
         th,
         td {
-            padding: rem(8px) rem(12px);
-            border-bottom: rem(1px) solid rgba($gray-15, 0.5);
-            border-left: rem(1px) solid $gray-15;
+            padding: rem_(8px) rem_(12px);
+            border-bottom: rem_(1px) solid rgba($gray-15, 0.5);
+            border-left: rem_(1px) solid $gray-15;
 
-            font-size: rem(14px);
+            font-size: rem_(14px);
             line-height: 1.6;
 
             &:first-of-type {
@@ -284,14 +286,14 @@
                 }
 
                 td {
-                    padding-bottom: rem(12px);
+                    padding-bottom: rem_(12px);
                 }
             }
         }
 
         thead {
             th {
-                border-bottom: rem(1px) solid $gray-15;
+                border-bottom: rem_(1px) solid $gray-15;
                 font-weight: 700;
             }
         }
