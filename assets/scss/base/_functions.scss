@@ -1,14 +1,16 @@
 @use "sass:math";
+@use "sass:list";
+@use "sass:color";
 
 // via https://css-tricks.com/snippets/sass/px-to-em-functions/
 $browser-context: 16;
 
 @function _em($pixels, $context: $browser-context) {
-  @if (unitless($pixels)) {
+  @if (math.is-unitless($pixels)) {
     $pixels: $pixels * 1px;
   }
 
-  @if (unitless($context)) {
+  @if (math.is-unitless($context)) {
     $context: $context * 1px;
   }
 
@@ -16,13 +18,13 @@ $browser-context: 16;
 }
 
 @function _rem($pixels) {
-  @if (unitless($pixels)) {
+  @if (math.is-unitless($pixels)) {
     $pixels: $pixels * 1px;
   }
 
   $context: $browser-context;
 
-  @if (unitless($context)) {
+  @if (math.is-unitless($context)) {
     $context: $context * 1px;
   }
 
@@ -37,25 +39,25 @@ $browser-context: 16;
 $scrimStops: 0% 0%, 26.2% 19%, 45.9% 34%, 61.8% 47%, 72.2% 56.5%, 80.6% 65%, 87.4% 73%, 92.5% 80.2%, 95.8% 86.1%, 97.9% 91%, 99.2% 95.2%, 99.8% 98.2%, 100% 100%;
 
 @function getColorStop($colorTo, $colorFrom, $weight, $stop) {
-  @return mix($colorFrom, $colorTo, $weight) $stop;
+  @return color.mix($colorFrom, $colorTo, $weight) $stop;
 }
 
 @function getColorStops($colorTo, $colorFrom) {
   $stops: ();
 
   @each $scrimStop in $scrimStops {
-    $stops: append($stops, getColorStop($colorTo, $colorFrom, nth($scrimStop, 1), nth($scrimStop, 2)), comma)
+    $stops: list.append($stops, getColorStop($colorTo, $colorFrom, list.nth($scrimStop, 1), list.nth($scrimStop, 2)), comma)
   }
 
   @return $stops;
 }
 
 @function scrim-linear-gradient($args...) {
-  @if (length($args)==2) {
-    @return linear-gradient(#{getColorStops(nth($args, 1), nth($args, 2))});
+  @if (list.length($args)==2) {
+    @return linear-gradient(#{getColorStops(list.nth($args, 1), list.nth($args, 2))});
   }
 
-  @return linear-gradient(#{nth($args, 1)}, #{getColorStops(nth($args, 2), nth($args, 3))});
+  @return linear-gradient(#{list.nth($args, 1)}, #{getColorStops(list.nth($args, 2), list.nth($args, 3))});
 }
 
 /**
