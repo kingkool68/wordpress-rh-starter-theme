@@ -1,4 +1,4 @@
-@import 'base/_imports.scss';
+@use 'base/_imports.scss' as *;
 
 $_border-radius : _rem(12px);
 

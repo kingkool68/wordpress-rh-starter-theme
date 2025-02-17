@@ -1,3 +1,5 @@
+@use 'base/_imports.scss' as *;
+
 // Reduce content shift. See https://twitter.com/TimVereecke/status/1239454788116533248
 html {
 	overflow-y: scroll;

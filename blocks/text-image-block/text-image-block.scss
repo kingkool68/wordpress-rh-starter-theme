@@ -1,6 +1,6 @@
-@import 'base/_imports.scss';
+@use 'base/_imports.scss' as *;
 
-$_breakpoint: _em(800px);
+$_breakpoint: #{_em(800px)};
 
 .text-image-block {
     margin: _rem(64px) calc(50% - 50vw);

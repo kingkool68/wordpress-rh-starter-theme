@@ -1,3 +1,6 @@
+@use 'base/_variables.scss' as *;
+@use 'base/_colors.scss' as *;
+
 @mixin h1 {
     font-family: $headline-font;
     font-size: _rem(36px);

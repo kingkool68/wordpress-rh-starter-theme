@@ -1,25 +1,6 @@
+@use 'base/_imports.scss' as *;
+
 $_breakpoint : _em(960px);
-
-// Ensure anchor links don't get covered by the sticky header
-// See https://stackoverflow.com/a/58890319/1119655
-@mixin anchor_link_offset {
-    padding-top: _rem($header_height + 5px); // 5px buffer
-    margin-top: _rem($header_height + 5px) * -1;
-
-    .admin-bar & {
-        padding-top: _rem($header_height + $admin_bar_height + 5px); // 5px buffer
-        margin-top: _rem($header_height + $admin_bar_height + 5px) * -1;
-    }
-}
-
-h1[id],
-h2[id],
-h3[id],
-h4[id],
-h5[id],
-h6[id] {
-    @include anchor_link_offset();
-}
 
 .header-alert {
     background-color: $gray-05;

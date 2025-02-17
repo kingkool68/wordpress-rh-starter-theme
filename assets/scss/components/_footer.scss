@@ -1,4 +1,6 @@
-$_breakpoint : _em(860px);
+@use 'base/_imports.scss' as *;
+
+$_breakpoint : 860px;
 $_small_breakpoint : _em(580px);
 
 .footer {
@@ -6,7 +8,7 @@ $_small_breakpoint : _em(580px);
     margin-top: _rem(64px);
     padding: _rem(64px) _rem(16px) _rem(32px);
 
-    @media(max-width: $_breakpoint) {
+    @media(max-width: _em($_breakpoint )) {
         padding-top: _rem(32px);
     }
 
