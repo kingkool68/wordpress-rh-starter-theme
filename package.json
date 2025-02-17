@@ -15,8 +15,7 @@
   },
   "dependencies": {
     "@wordpress/dom-ready": "^4.15.0",
-    "element-closest": "^3.0.2",
-    "sass": "^1.85.0"
+    "element-closest": "^3.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.26.0",
@@ -41,7 +40,8 @@
     "gulp-rename": "^2.0.0",
     "gulp-sass": "^6.0.0",
     "gulp-uglify": "^3.0.2",
-    "gulp-uglifycss": "^1.1.0"
+    "gulp-uglifycss": "^1.1.0",
+    "sass": "^1.85.0"
   },
   "scripts": {
     "postinstall": "npm run setup",
