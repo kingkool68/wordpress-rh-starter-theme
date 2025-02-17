@@ -2,28 +2,28 @@
 
 .single-post {
     max-width: $maximum-page-width;
-    padding: _rem(32px) _rem(16px) 0;
+    padding: rem_(32px) rem_(16px) 0;
     margin: 0 auto;
 
     position: relative; // To contain .the-aside
 
     .the-post {
-        max-width: _rem(760px);
-        margin: 0 auto _rem(48px);
+        max-width: rem_(760px);
+        margin: 0 auto rem_(48px);
     }
 
     .the-title {
         @include h1();
 
-        margin-bottom: _rem(22px);
+        margin-bottom: rem_(22px);
     }
 
     .the-meta {
-        margin-bottom: _rem(20px);
+        margin-bottom: rem_(20px);
     }
 
     .date-categories {
-        font-size: _rem(14px);
+        font-size: rem_(14px);
         color: $gray-70;
 
         a {
@@ -36,6 +36,6 @@
     }
 
     .the-featured-image {
-        margin-bottom: _rem(32px);
+        margin-bottom: rem_(32px);
     }
 }

@@ -21,29 +21,29 @@ a {
 
 // Inspired by https://dylanatsmith.com/wrote/styling-the-kbd-element
 kbd {
-	border-radius: _rem(4px);
-	border: _rem(1px) solid $gray-65;
+	border-radius: rem_(4px);
+	border: rem_(1px) solid $gray-65;
 
 	// A sharp shadow (with no blur) really gives
 	// the old school keyboard look
-	box-shadow: 0 _rem(2px) 0 _rem(1px) $gray-65;
+	box-shadow: 0 rem_(2px) 0 rem_(1px) $gray-65;
 	cursor: default;
 	font-family: $system;
 	font-size: 75%;
 	line-height: 1;
-	min-width: _rem(12px); // Make narrow numbers and letters look less odd
+	min-width: rem_(12px); // Make narrow numbers and letters look less odd
 	display: inline-block;
 	text-align: center;
-	padding: _rem(2px) _rem(5px);
+	padding: rem_(2px) rem_(5px);
 
 	// These two lines pull the whole element up now that they’re
 	// bottom-heavy due to the `box-shadow`. This looks better
 	// against the cap height of regular paragraph text.
 	position: relative;
-	top: _rem(-1px);
+	top: rem_(-1px);
 
 	&:hover {
-	  box-shadow: 0 _rem(1px) 0 _rem(0.5px) $gray-65;
-	  top: _rem(1px);
+	  box-shadow: 0 rem_(1px) 0 rem_(0.5px) $gray-65;
+	  top: rem_(1px);
 	}
   }

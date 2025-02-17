@@ -1,17 +1,17 @@
 @mixin hidden {
-  clip: rect(_rem(1px), _rem(1px), _rem(1px), _rem(1px));
-  height: _rem(1px);
+  clip: rect(rem_(1px), rem_(1px), rem_(1px), rem_(1px));
+  height: rem_(1px);
   overflow: hidden;
   position: absolute !important;
-  width: _rem(1px);
+  width: rem_(1px);
 }
 
 @mixin unhidden {
   clip: auto !important;
   display: block;
   height: auto;
-  left: _rem(5px);
-  top: _rem(5px);
+  left: rem_(5px);
+  top: rem_(5px);
   width: auto;
   z-index: 101; // Above WP toolbar
 }
