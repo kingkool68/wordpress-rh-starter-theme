@@ -1,5 +1,5 @@
 @forward 'base/_imports.scss';
-@use 'base/_fonts.scss'; // Fonts should only be imported in a global stylesheet
+// @use 'base/_fonts.scss'; // Fonts should only be imported in a global stylesheet
 
 @use 'components/_reset.scss';
 @use 'components/_accessibility.scss';
