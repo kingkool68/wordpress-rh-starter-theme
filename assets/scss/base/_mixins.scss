@@ -1,3 +1,5 @@
+@use 'base/_functions.scss' as *;
+
 @mixin hidden {
   clip: rect(rem_(1px), rem_(1px), rem_(1px), rem_(1px));
   height: rem_(1px);
