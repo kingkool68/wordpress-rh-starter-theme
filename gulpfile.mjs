@@ -33,7 +33,7 @@ import config from './gulp-config.js';
 import gulp from 'gulp'; // Gulp of-course
 
 // CSS related plugins.
-import dartSass from 'sass'; // Gulp pluign for Sass compilation.
+import * as dartSass from 'sass'; // Gulp pluign for Sass compilation.
 import gulpSass from 'gulp-sass';
 var sass = gulpSass(dartSass);
 import minifycss from 'gulp-uglifycss' // Minifies CSS files.
@@ -46,7 +46,7 @@ import babel from 'gulp-babel'; // Compiles ESNext to browser compatible JS.
 
 import { createGulpEsbuild } from 'gulp-esbuild';
 var esbuild = createGulpEsbuild({
-	pipe: true,
+	incremental: true,
 });
 
 // Utility related plugins.
@@ -58,6 +58,7 @@ import remember from 'gulp-remember'; // Adds all the files it has ever seen bac
 import plumber from 'gulp-plumber'; // Prevent pipe breaking caused by errors from gulp plugins
 // import debug from 'gulp-debug'; // For debugging Gulp filenames and paths
 import { deleteSync } from 'del'; // Handles deleting files and directories
+import replace from 'gulp-replace'; // For cleaning up minified CSS file content
 /**
  * Task: `styles`.
  *
@@ -89,6 +90,8 @@ gulp.task('styles', function () {
 		.pipe(jmq({ log: true })) // Merge Media Queries only for .min.css version.
 		.pipe(rename({ suffix: '.min' }))
 		.pipe(minifycss())
+		.pipe(replace(/(\S)\+(\S)/g, '$1 + $2')) // Replace 5vw+3rem to 5vw + 3rem because the space around a plus matters for clamp()
+		.pipe(replace('svg + xml', 'svg+xml')) // Don't add a space around plus symbol when using an SVG Data URI like in lite-youtube-embed.scss
 		// .pipe( sourcemaps.write( './' ) )
 		.pipe(lineec()) // Consistent Line Endings for non UNIX systems.
 		.pipe(gulp.dest(config.styleDestination))
