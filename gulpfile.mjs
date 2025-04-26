@@ -57,7 +57,7 @@ import notify from 'gulp-notify'; // Sends message notification to you
 import remember from 'gulp-remember'; // Adds all the files it has ever seen back into the stream
 import plumber from 'gulp-plumber'; // Prevent pipe breaking caused by errors from gulp plugins
 // import debug from 'gulp-debug'; // For debugging Gulp filenames and paths
-import {deleteSync} from 'del'; // Handles deleting files and directories
+import { deleteSync } from 'del'; // Handles deleting files and directories
 /**
  * Task: `styles`.
  *
@@ -71,9 +71,9 @@ import {deleteSync} from 'del'; // Handles deleting files and directories
  *    5. Renames the CSS file with suffix .min.css
  *    6. Minifies the CSS file and generates style.min.css
  */
-gulp.task( 'styles', function() {
+gulp.task('styles', function () {
 	return gulp
-		.src( config.styleSRC )
+		.src(config.styleSRC)
 		// .pipe( sourcemaps.init() )
 		.pipe(
 			sass({
@@ -83,16 +83,16 @@ gulp.task( 'styles', function() {
 				loadPaths: config.loadPaths,
 			})
 		)
-		.on( 'error', sass.logError )
-		.pipe( autoprefixer( config.BROWSERS_LIST ) )
-		.pipe( filter( '**/*.css' ) ) // Filtering stream to only css files
-		.pipe( jmq({ log: true }) ) // Merge Media Queries only for .min.css version.
-		.pipe( rename({ suffix: '.min' }) )
-		.pipe( minifycss() )
+		.on('error', sass.logError)
+		.pipe(autoprefixer(config.BROWSERS_LIST))
+		.pipe(filter('**/*.css')) // Filtering stream to only css files
+		.pipe(jmq({ log: true })) // Merge Media Queries only for .min.css version.
+		.pipe(rename({ suffix: '.min' }))
+		.pipe(minifycss())
 		// .pipe( sourcemaps.write( './' ) )
-		.pipe( lineec() ) // Consistent Line Endings for non UNIX systems.
-		.pipe( gulp.dest( config.styleDestination ) )
-		.pipe( notify({ message: 'TASK: "styles" Completed! 💯', onLast: true }) );
+		.pipe(lineec()) // Consistent Line Endings for non UNIX systems.
+		.pipe(gulp.dest(config.styleDestination))
+		.pipe(notify({ message: 'TASK: "styles" Completed! 💯', onLast: true }));
 });
 
 /**
@@ -106,7 +106,7 @@ gulp.task( 'styles', function() {
  *     3. Renames the JS file with suffix .min.js
  *     4. Uglifes/Minifies the JS file and generates custom.min.js
  */
-gulp.task( 'scripts', function() {
+gulp.task('scripts', function () {
 	return gulp
 		.src(config.scriptSRC, {
 			since: gulp.lastRun('scripts'), // Only run on changed files.
@@ -114,9 +114,9 @@ gulp.task( 'scripts', function() {
 		})
 		.pipe(
 			plumber({
-				errorHandler: function( err ) {
-					notify.onError( 'Error: <%= error.message %>' )( err );
-					this.emit( 'end' ); // End stream if error is found
+				errorHandler: function (err) {
+					notify.onError('Error: <%= error.message %>')(err);
+					this.emit('end'); // End stream if error is found
 				}
 			})
 		)
@@ -132,7 +132,7 @@ gulp.task( 'scripts', function() {
 					[
 						'@babel/preset-env', // Preset to compile your modern JS to ES5.
 						{
-							targets: {browsers: config.BROWSERS_LIST} // Target browser list to support.
+							targets: { browsers: config.BROWSERS_LIST } // Target browser list to support.
 						}
 					]
 				]
@@ -144,11 +144,11 @@ gulp.task( 'scripts', function() {
 				return path;
 			})
 		)
-		.pipe( remember( 'scripts' ) ) // Bring all files back to stream
-		.pipe( uglify() )
-		.pipe( lineec() ) // Consistent Line Endings for non UNIX systems.
-		.pipe(gulp.dest(config.scriptDest ) )
-		.pipe( notify({ message: 'TASK: "scripts" Completed! 💯', onLast: true }) );
+		.pipe(remember('scripts')) // Bring all files back to stream
+		.pipe(uglify())
+		.pipe(lineec()) // Consistent Line Endings for non UNIX systems.
+		.pipe(gulp.dest(config.scriptDest))
+		.pipe(notify({ message: 'TASK: "scripts" Completed! 💯', onLast: true }));
 });
 
 gulp.task('clean', function () {
@@ -158,22 +158,22 @@ gulp.task('clean', function () {
 		.pipe(notify({ message: 'TASK: "clean" Completed! 💯', onLast: true }));
 });
 
-gulp.task( 'setup', function() {
-	config.filesToMove.forEach( function( file ) {
-		if ( ! file.rename ) {
+gulp.task('setup', function () {
+	config.filesToMove.forEach(function (file) {
+		if (!file.rename) {
 			file.rename = {};
 		}
 		gulp
-			.src( file.src )
+			.src(file.src)
 			.pipe(
 
-				rename( file.rename )
+				rename(file.rename)
 			)
-			.pipe( gulp.dest( file.dest ) );
+			.pipe(gulp.dest(file.dest));
 	});
 	return gulp
-		.src( '.' )
-		.pipe( notify({ message: 'TASK: "setup" Completed! 💯', onLast: true }) );
+		.src('.')
+		.pipe(notify({ message: 'TASK: "setup" Completed! 💯', onLast: true }));
 });
 
 /**
@@ -188,8 +188,8 @@ gulp.task(
 		'styles',
 		'scripts',
 		function watchFiles() {
-			gulp.watch( config.styleWatchFiles, gulp.parallel( 'styles' ) ); // Reload on SCSS file changes.
-			gulp.watch( config.scriptWatchFiles, gulp.series( 'scripts' ) ); // Reload on scripts file changes.
+			gulp.watch(config.styleWatchFiles, gulp.parallel('styles')); // Reload on SCSS file changes.
+			gulp.watch(config.scriptWatchFiles, gulp.series('scripts')); // Reload on scripts file changes.
 		}
 	)
 );
