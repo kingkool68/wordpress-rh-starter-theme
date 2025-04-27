@@ -66,7 +66,7 @@ $scrimStops: 0% 0%, 26.2% 19%, 45.9% 34%, 61.8% 47%, 72.2% 56.5%, 80.6% 65%, 87.
  *
  * @via https://www.smashingmagazine.com/2022/10/fluid-typography-clamp-sass-functions/
  */
-$default-fluid-min-bp: 480px;
+$default-fluid-min-bp: 420px;
 $default-fluid-max-bp: 1040px;
 
 @function round($number, $decimals: 0) {
