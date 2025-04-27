@@ -11,7 +11,7 @@
     .next-link,
     .previous-link {
         font-size: rem_(14px);
-        color: $logo-red;
+        color: $red;
         padding: rem_(32px) rem_(16px);
 
         display: flex;
@@ -59,7 +59,7 @@
         display: block;
         padding: rem_(32px) rem_(16px);
         font-size: rem_(14px);
-        color: $logo-red;
+        color: $red;
         height: 0;
         text-align: center;
         line-height: 0;
