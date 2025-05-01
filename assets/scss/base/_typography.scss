@@ -2,54 +2,54 @@
 @use 'base/_functions.scss' as *;
 @use 'base/_colors.scss' as *;
 
-@mixin h1 {
+@mixin h1($font-weight: 800) {
 	font-family: $headline-font;
 	font-size: rem_(64px);
 	font-size: fluid(42px, 64px);
-	font-weight: 400;
+	font-weight: $font-weight;
 	line-height: 1.15;
 	letter-spacing: -0.01em;
 }
 
-@mixin h2 {
+@mixin h2($font-weight: 800) {
 	font-family: $headline-font;
 	font-size: rem_(52px);
 	font-size: fluid(32px, 52px);
-	font-weight: 400;
+	font-weight: $font-weight;
 	line-height: 1.15;
 	letter-spacing: -0.01em;
 }
 
-@mixin h3 {
+@mixin h3($font-weight: 800) {
 	font-family: $headline-font;
 	font-size: rem_(42px);
 	font-size: fluid(32px, 42px);
-	font-weight: 400;
+	font-weight: $font-weight;
 	line-height: 1;
 	letter-spacing: -0.01em;
 }
 
-@mixin h4 {
+@mixin h4($font-weight: 800) {
 	font-family: $headline-font;
 	font-size: rem_(36px);
 	font-size: fluid(20px, 36px);
-	font-weight: 400;
+	font-weight: $font-weight;
 	line-height: 1.11;
 	letter-spacing: -0.01em;
 }
 
-@mixin h5 {
+@mixin h5($font-weight: 800) {
 	font-family: $headline-font;
 	font-size: rem_(24px);
 	font-size: fluid(18px, 24px);
-	font-weight: 400;
+	font-weight: $font-weight;
 	line-height: 1.16;
 }
 
-@mixin h6 {
+@mixin h6($font-weight: 800) {
 	font-family: $headline-font;
 	font-size: rem_(20px);
 	font-size: fluid(18px, 20px);
-	font-weight: 400;
+	font-weight: $font-weight;
 	line-height: 1.2;
 }
