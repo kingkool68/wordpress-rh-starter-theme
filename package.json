@@ -52,8 +52,6 @@
 		"styles": "gulp styles",
 		"styles:test": "gulp styles:test",
 		"scripts": "gulp scripts",
-		"prettier": "prettier --check **/*.{js,jsx,ts,tsx,scss,json}",
-		"prettier:fix": "prettier --write **/*.{js,jsx,ts,tsx,scss,json}",
 		"clean": "gulp clean"
 	}
 }
