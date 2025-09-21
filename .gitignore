@@ -4,8 +4,10 @@
 # Ignore static assets that will be compiled locally or on CI/CD pipeline
 assets/css
 assets/js/**/*.js
+assets/js/**/*.map
 !assets/js/**/*.src.js
 blocks/**/*.js
+blocks/**/*.map
 !blocks/**/*.src.js
 
 page-test.php
