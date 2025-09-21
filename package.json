@@ -1,57 +1,57 @@
 {
-  "name": "rh-theme",
-  "description": "Russell Heimlich's WordPress Theme",
-  "version": "1.0.0",
-  "license": "GPL-2.0",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/kingkool68/wordpress-rh-starter-theme"
-  },
-  "eslintConfig": {
-    "extends": "wordpress",
-    "env": {
-      "es6": true
-    }
-  },
-  "dependencies": {
-    "@wordpress/dom-ready": "^4.22.0",
-    "element-closest": "^3.0.2",
-    "flickity": "^3.0.0",
-    "flickity-imagesloaded": "^2.0.0"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.26.10",
-    "@babel/preset-env": "^7.26.0",
-    "@babel/register": "^7.25.9",
-    "@wordpress/eslint-plugin": "^22.8.0",
-    "beepbeep": "^1.3.0",
-    "del": "^8.0.0",
-    "esbuild": "^0.25.3",
-    "gulp": "^5.0.0",
-    "gulp-autoprefixer": "^9.0.0",
-    "gulp-babel": "^8.0.0",
-    "gulp-dart-sass": "^1.1.0",
-    "gulp-debug": "^5.0.1",
-    "gulp-esbuild": "^0.14.0",
-    "gulp-filter": "^9.0.1",
-    "gulp-join-media-queries": "^1.2.0",
-    "gulp-line-ending-corrector": "^1.0.3",
-    "gulp-notify": "^5.0.0",
-    "gulp-plumber": "^1.2.1",
-    "gulp-remember": "^1.0.1",
-    "gulp-rename": "^2.0.0",
-    "gulp-replace": "^1.1.4",
-    "gulp-sass": "^6.0.1",
-    "gulp-uglify": "^3.0.2",
-    "gulp-uglifycss": "^1.1.0",
-    "sass": "^1.87.0"
-  },
-  "scripts": {
-    "postinstall": "npm run setup",
-    "setup": "gulp setup && gulp",
-    "start": "gulp",
-    "styles": "gulp styles",
-    "scripts": "gulp scripts",
-    "clean": "gulp clean"
-  }
+	"name": "rh-theme",
+	"description": "Russell Heimlich's WordPress Theme",
+	"version": "1.0.0",
+	"license": "GPL-2.0",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/kingkool68/wordpress-rh-starter-theme"
+	},
+	"eslintConfig": {
+		"extends": "wordpress",
+		"env": {
+			"es6": true
+		}
+	},
+	"prettier": "@wordpress/prettier-config",
+	"dependencies": {
+		"@wordpress/dom-ready": "^4.22.0",
+		"element-closest": "^3.0.2",
+		"flickity": "^3.0.0",
+		"flickity-imagesloaded": "^2.0.0"
+	},
+	"devDependencies": {
+		"@wordpress/eslint-plugin": "^22.17.0",
+		"@wordpress/prettier-config": "^4.31.0",
+		"autoprefixer": "^10.4.21",
+		"del": "^8.0.0",
+		"fancy-log": "^2.0.0",
+		"gulp": "^5.0.0",
+		"gulp-csso": "^4.0.1",
+		"gulp-dart-sass": "^1.1.0",
+		"gulp-debug": "^5.0.1",
+		"gulp-esbuild": "^0.14.0",
+		"gulp-line-ending-corrector": "^1.0.3",
+		"gulp-notify": "^5.0.0",
+		"gulp-plumber": "^1.2.1",
+		"gulp-postcss": "^10.0.0",
+		"gulp-rename": "^2.0.0",
+		"gulp-replace": "^1.1.4",
+		"gulp-sass": "^6.0.0",
+		"gulp-sourcemaps": "^3.0.0",
+		"intersection-observer-debugger": "^0.1.1",
+		"postcss": "^8.5.6",
+		"postcss-sort-media-queries": "^5.2.0",
+		"prettier": "^3.6.2",
+		"sass": "^1.87.0"
+	},
+	"scripts": {
+		"postinstall": "npm run setup",
+		"setup": "gulp setup && gulp",
+		"start": "gulp",
+		"styles": "gulp styles",
+		"styles:test": "gulp styles:test",
+		"scripts": "gulp scripts",
+		"clean": "gulp clean"
+	}
 }

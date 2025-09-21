@@ -1,198 +1,218 @@
 /**
- * Gulpfile.
- *
- * Gulp with WordPress.
- *
- * Implements:
- *      1. Live reloads browser with BrowserSync.
- *      2. CSS: Sass to CSS conversion, error catching, Autoprefixing, Sourcemaps,
- *         CSS minification, and Merge Media Queries.
- *      3. JS: Concatenates & uglifies Vendor and Custom JS files.
- *      4. Images: Minifies PNG, JPEG, GIF and SVG images.
- *      5. Watches files for changes in CSS or JS.
- *      6. Watches files for changes in PHP.
- *      7. Corrects the line endings.
- *
- * @author Ahmad Awais (https://github.com/ahmadawais)
- *         Contributors: https://AhmdA.ws/WPGContributors
- * @version 1.9.3
+ * Customize the project in the config.js file
  */
+import config from "./gulp-config.js";
 
 /**
- * Load Config.
- *
- * Customize your project in the config.js file
- */
-import config from './gulp-config.js';
-
-/**
- * Load Plugins.
- *
  * Load gulp plugins and passing them semantic names.
  */
-import gulp from 'gulp'; // Gulp of-course
+import gulp from "gulp"; // Gulp of-course
 
 // CSS related plugins.
-import * as dartSass from 'sass'; // Gulp pluign for Sass compilation.
-import gulpSass from 'gulp-sass';
+import * as dartSass from "sass"; // Gulp pluign for Sass compilation
+import gulpSass from "gulp-sass";
 var sass = gulpSass(dartSass);
-import minifycss from 'gulp-uglifycss' // Minifies CSS files.
-import autoprefixer from 'gulp-autoprefixer'; // Autoprefixing magic.
-import jmq from 'gulp-join-media-queries'; // For combining media queries
+
+import csso from "gulp-csso"; // CSS optimixations and minimizing
+import autoprefixer from "autoprefixer"; // Autoprefixing magic
+import postcss from "gulp-postcss"; // Run PostCSS tasks
+import sortMediaQueries from "postcss-sort-media-queries"; // Merge similiar media queries
 
 // JS related plugins.
-import uglify from 'gulp-uglify'; // Minifies JS files
-import babel from 'gulp-babel'; // Compiles ESNext to browser compatible JS.
-
-import { createGulpEsbuild } from 'gulp-esbuild';
+import { createGulpEsbuild } from "gulp-esbuild";
 var esbuild = createGulpEsbuild({
-	incremental: true,
+	pipe: true,
 });
+import replace from "gulp-replace"; // Search and replace contents
 
 // Utility related plugins.
-import rename from 'gulp-rename'; // Renames files E.g. style.css -> style.min.css
-import lineec from 'gulp-line-ending-corrector'; // Consistent Line Endings for non UNIX systems. Gulp Plugin for Line Ending Corrector (A utility that makes sure your files have consistent line endings)
-import filter from 'gulp-filter'; // Enables you to work on a subset of the original files by filtering them using globbing.
-import notify from 'gulp-notify'; // Sends message notification to you
-import remember from 'gulp-remember'; // Adds all the files it has ever seen back into the stream
-import plumber from 'gulp-plumber'; // Prevent pipe breaking caused by errors from gulp plugins
+import fs from "fs"; // The filesystem for manipulating files
+import { exec } from "child_process";
+import plumber from "gulp-plumber"; // Prevent pipe breaking caused by errors from gulp plugins
+import sourcemaps from "gulp-sourcemaps"; // For generating sourcemaps
+import rename from "gulp-rename"; // Renames files E.g. style.css -> style.min.css
+import lineec from "gulp-line-ending-corrector"; // Consistent Line Endings for non UNIX systems
+import log from "fancy-log"; // Fancy logging
 // import debug from 'gulp-debug'; // For debugging Gulp filenames and paths
-import { deleteSync } from 'del'; // Handles deleting files and directories
-import replace from 'gulp-replace'; // For cleaning up minified CSS file content
+import { deleteSync } from "del"; // Handles deleting files and directories
+
 /**
- * Task: `styles`.
+ * Helper to log success messages
  *
- * Compiles Sass, Autoprefixes it and Minifies CSS.
+ * @param   {string}  message  The success message to display
  *
- * This task does the following:
- *    1. Gets the source scss file
- *    2. Compiles Sass to CSS
- *    3. Writes Sourcemaps for it
- *    4. Autoprefixes it and generates style.css
- *    5. Renames the CSS file with suffix .min.css
- *    6. Minifies the CSS file and generates style.min.css
+ * @return  {string}           The pretty formatted success message
  */
-gulp.task('styles', function () {
-	return gulp
-		.src(config.styleSRC)
-		// .pipe( sourcemaps.init() )
-		.pipe(
-			sass({
-				errLogToConsole: config.errLogToConsole,
-				outputStyle: config.outputStyle,
-				precision: config.precision,
-				loadPaths: config.loadPaths,
-			})
-		)
-		.on('error', sass.logError)
-		.pipe(autoprefixer(config.BROWSERS_LIST))
-		.pipe(filter('**/*.css')) // Filtering stream to only css files
-		.pipe(jmq({ log: true })) // Merge Media Queries only for .min.css version.
-		.pipe(rename({ suffix: '.min' }))
-		.pipe(minifycss())
-		.pipe(replace(/(\S)\+(\S)/g, '$1 + $2')) // Replace 5vw+3rem to 5vw + 3rem because the space around a plus matters for clamp()
-		.pipe(replace('svg + xml', 'svg+xml')) // Don't add a space around plus symbol when using an SVG Data URI like in lite-youtube-embed.scss
-		// .pipe( sourcemaps.write( './' ) )
-		.pipe(lineec()) // Consistent Line Endings for non UNIX systems.
-		.pipe(gulp.dest(config.styleDestination))
-		.pipe(notify({ message: 'TASK: "styles" Completed! 💯', onLast: true }));
+function logSuccess(message) {
+	log("✅✅✅✅ " + message);
+}
+
+/**
+ * Helper to log serror messages
+ *
+ * @param   {string}  message  The error message to display
+ *
+ * @return  {string}           The pretty formatted error message
+ */
+function logError(message) {
+	log("❌❌❌❌ " + message);
+
+	// Make an audible beep
+	if (process.platform === "darwin") {
+		// Play a beep sound on MacOS
+		exec("osascript -e 'beep'");
+	} else {
+		process.stdout.write("\x07");
+	}
+}
+
+/**
+ * Delete previously compiled files
+ */
+gulp.task("clean", function () {
+	deleteSync(config.filesToClean);
+	return gulp.src(".").on("end", () => logSuccess("🧹"));
 });
 
 /**
- * Task: `scripts`.
- *
- * Compile and uglify JavaScript files.
- *
- * This task does the following:
- *     1. Gets the source folder for JS custom files
- *     2. Concatenates all the files and generates custom.js
- *     3. Renames the JS file with suffix .min.js
- *     4. Uglifes/Minifies the JS file and generates custom.min.js
+ * Compile Sass and generate CSS files
  */
-gulp.task('scripts', function () {
+gulp.task("styles", function () {
+	let hadError = false;
+	return (
+		gulp
+			.src(config.styleSRC)
+			.pipe(
+				plumber({
+					errorHandler: function (err) {
+						hadError = true;
+						logError(err.messageFormatted);
+						this.emit("end"); // End stream if error is found
+					},
+				}),
+			)
+			// .pipe(sourcemaps.init())
+			.pipe(
+				sass({
+					outputStyle: "expanded",
+					precision: config.precision,
+					loadPaths: config.loadPaths,
+				}),
+			)
+			.pipe(
+				postcss([
+					autoprefixer({
+						overrideBrowserslist: config.BROWSERS_LIST,
+					}),
+					sortMediaQueries(),
+				]),
+			)
+			.pipe(rename({ suffix: ".min" }))
+			.pipe(csso())
+			.pipe(lineec())
+			// .pipe(sourcemaps.write('.'))
+			.pipe(gulp.dest(config.styleDestination))
+			.on("finish", () => {
+				if (!hadError) {
+					logSuccess("🎨");
+				}
+			})
+	);
+});
+
+/**
+ * See if a compiled CSS file contains certain patterns we know are errors
+ */
+gulp.task(
+	"styles:test",
+	gulp.series("clean", "styles", function runStyleTests(done) {
+		const css = fs.readFileSync("assets/css/rh.min.css", "utf8");
+		const checks = [
+			{
+				pattern: "svg + xml",
+				message: 'There should be no spaces around + in "svg+xml"',
+			},
+			{
+				pattern: "rem+3);",
+				message: "There should be spaces around + in clamp() functions",
+			},
+		];
+
+		checks.forEach(({ pattern, message }) => {
+			if (css.includes(pattern)) {
+				throw new Error(logError(message));
+			}
+		});
+
+		return gulp.src(".").on("end", () => logSuccess("🧪"));
+	}),
+);
+
+/**
+ * Compile JavaScript files using esbuild
+ */
+gulp.task("scripts", function () {
+	let hadError = false;
 	return gulp
-		.src(config.scriptSRC, {
-			since: gulp.lastRun('scripts'), // Only run on changed files.
-			base: config.scriptBase,
-		})
+		.src(config.scriptSRC)
 		.pipe(
 			plumber({
 				errorHandler: function (err) {
-					notify.onError('Error: <%= error.message %>')(err);
-					this.emit('end'); // End stream if error is found
-				}
-			})
+					hadError = true;
+					logError(err.message);
+					this.emit("end"); // End stream if error is found
+				},
+			}),
 		)
 		.pipe(
 			esbuild({
 				bundle: true,
-				loader: { '.js': 'js' }
-			})
+				minify: true,
+				sourcemap: true,
+				target: ["es2015"],
+				loader: { ".js": "js" },
+			}),
 		)
-		.pipe(
-			babel({
-				presets: [
-					[
-						'@babel/preset-env', // Preset to compile your modern JS to ES5.
-						{
-							targets: { browsers: config.BROWSERS_LIST } // Target browser list to support.
-						}
-					]
-				]
-			})
-		)
+		.pipe(lineec()) // Consistent Line Endings for non UNIX systems
 		.pipe(
 			rename(function (path) {
-				path.basename = path.basename.replace('.src', '');
+				path.basename = path.basename.replace(".src", "");
 				return path;
-			})
+			}),
 		)
-		.pipe(remember('scripts')) // Bring all files back to stream
-		.pipe(uglify())
-		.pipe(lineec()) // Consistent Line Endings for non UNIX systems.
+		.pipe(
+			replace(/\/\/# sourceMappingURL=.*$/m, function () {
+				return `//# sourceMappingURL=${this.file.basename}.map`;
+			}),
+		)
 		.pipe(gulp.dest(config.scriptDest))
-		.pipe(notify({ message: 'TASK: "scripts" Completed! 💯', onLast: true }));
+		.on("finish", () => {
+			if (!hadError) {
+				logSuccess("🛠️");
+			}
+		});
 });
 
-gulp.task('clean', function () {
-	var deletedPaths = deleteSync(config.filesToClean);
-	return gulp
-		.src('.')
-		.pipe(notify({ message: 'TASK: "clean" Completed! 💯', onLast: true }));
-});
-
-gulp.task('setup', function () {
+/**
+ * Copy files from a directery like node_modules to another location
+ */
+gulp.task("setup", function (done) {
 	config.filesToMove.forEach(function (file) {
 		if (!file.rename) {
 			file.rename = {};
 		}
-		gulp
-			.src(file.src)
-			.pipe(
-
-				rename(file.rename)
-			)
-			.pipe(gulp.dest(file.dest));
+		gulp.src(file.src).pipe(rename(file.rename)).pipe(gulp.dest(file.dest));
 	});
-	return gulp
-		.src('.')
-		.pipe(notify({ message: 'TASK: "setup" Completed! 💯', onLast: true }));
+	done();
 });
 
 /**
- * Watch Tasks.
- *
- * Watches for file changes and runs specific tasks.
+ * Watches for file changes and runs specific tasks
  */
 gulp.task(
-	'default',
-	gulp.parallel(
-		'clean',
-		'styles',
-		'scripts',
-		function watchFiles() {
-			gulp.watch(config.styleWatchFiles, gulp.parallel('styles')); // Reload on SCSS file changes.
-			gulp.watch(config.scriptWatchFiles, gulp.series('scripts')); // Reload on scripts file changes.
-		}
-	)
+	"default",
+	gulp.parallel("clean", "styles", "scripts", function watchFiles() {
+		gulp.watch(config.styleWatchFiles, gulp.parallel("styles")); // Reload on SCSS file changes.
+		gulp.watch(config.scriptWatchFiles, gulp.series("scripts")); // Reload on scripts file changes.
+	}),
 );
