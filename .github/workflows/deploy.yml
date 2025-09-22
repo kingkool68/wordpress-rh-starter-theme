@@ -70,12 +70,12 @@ jobs:
           fi
 
           # Capture diff of the changes between the two branches
-          git diff --no-color ${BUILD_BRANCH} ${GITHUB_REF_NAME} > ~/${BUILD_BRANCH}.diff
+          git diff --no-color --binary --full-index ${BUILD_BRANCH} ${GITHUB_REF_NAME} > ~/${BUILD_BRANCH}.diff
 
           # If the diff file is not empty then continue
           if [ -s ~/${BUILD_BRANCH}.diff ]; then
             # Apply changes to the build branch
-            git apply ~/${BUILD_BRANCH}.diff
+            git apply --index ~/${BUILD_BRANCH}.diff
 
             # Add file changes and commit
             git add .
