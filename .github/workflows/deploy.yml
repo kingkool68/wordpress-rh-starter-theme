@@ -58,6 +58,8 @@ jobs:
           # Setup variables
           BUILD_BRANCH="build/${GITHUB_REF_NAME}"
           GITHUB_ACTION_URL="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/commit/${GITHUB_SHA}/checks"
+          SAFE_BRANCH_NAME="${BUILD_BRANCH//\//-}"
+          DIFF_FILE="${RUNNER_TEMP}/${SAFE_BRANCH_NAME}.diff"
 
           # Switch branches... maybe?
           git fetch --all
@@ -71,12 +73,11 @@ jobs:
           fi
 
           # Capture diff of the changes between the two branches
-          git diff --no-color --binary --full-index ${BUILD_BRANCH} ${GITHUB_REF_NAME} > ~/${BUILD_BRANCH}.diff
+          git diff --no-color --binary --full-index ${BUILD_BRANCH} ${GITHUB_REF_NAME} > "${DIFF_FILE}"
 
-          # If the diff file is not empty then continue
-          if [ -s ~/${BUILD_BRANCH}.diff ]; then
-            # Apply changes to the build branch
-            git apply --index ~/${BUILD_BRANCH}.diff
+          # If there are changes, apply & push
+          if [ -s "${DIFF_FILE}" ]; then
+            git apply --index "${DIFF_FILE}"
 
             # Add file changes and commit
             git add .
