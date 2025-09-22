@@ -30,6 +30,9 @@ jobs:
         with:
           node-version: '22'
 
+      - name: Delete the postinstall script?
+        run: npm pkg delete scripts.postinstall
+
       - name: Install dependencies
         run: npm ci --no-audit --fund=false
 
