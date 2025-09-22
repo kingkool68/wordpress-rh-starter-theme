@@ -2,8 +2,7 @@ name: Cache Deploy
 on:
   push:
     branches:
-    - 'master'
-    - 'actions/cache'
+    - 'main'
 
   workflow_dispatch:
     inputs:
