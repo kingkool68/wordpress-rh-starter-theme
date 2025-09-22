@@ -56,7 +56,7 @@ jobs:
           git commit -m "Build"
 
           # Setup variables
-          BUILD_BRANCH="${GITHUB_REF_NAME}-build"
+          BUILD_BRANCH="build/${GITHUB_REF_NAME}"
           GITHUB_ACTION_URL="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/commit/${GITHUB_SHA}/checks"
 
           # Switch branches... maybe?
