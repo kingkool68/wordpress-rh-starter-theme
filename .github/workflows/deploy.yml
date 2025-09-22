@@ -73,11 +73,11 @@ jobs:
           fi
 
           # Capture diff of the changes between the two branches
-          git diff --no-color --binary --full-index ${BUILD_BRANCH} ${GITHUB_REF_NAME} > "${DIFF_FILE}"
+          git diff --no-color --binary ${BUILD_BRANCH} ${GITHUB_REF_NAME} > "${DIFF_FILE}"
 
           # If there are changes, apply & push
           if [ -s "${DIFF_FILE}" ]; then
-            git apply --index "${DIFF_FILE}"
+            git apply "${DIFF_FILE}"
 
             # Add file changes and commit
             git add -A
