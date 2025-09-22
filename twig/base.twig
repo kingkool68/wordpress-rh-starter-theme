@@ -1,0 +1,22 @@
+<!doctype html>
+<html class="no-js" {{ get_language_attributes() }}>
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		{{ wp_head() }}
+		{% block head '' %}
+		<meta name="facebook-domain-verification" content="xmtyv7kyoru5hx21wcyer4t18v1bco">
+	</head>
+	<body id="" {{ body_class() }}>
+		{{ get_header() }}
+
+		<div class="main-content" id="main-content">
+			<main>
+				{% block content '' %}
+			</main>
+		</div>
+		{{ get_footer() }}
+		{{ wp_footer() }}
+	</body>
+</html>

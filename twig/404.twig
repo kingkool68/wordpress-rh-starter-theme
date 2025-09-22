@@ -1,0 +1,11 @@
+{% extends 'base.twig' %}
+
+{% block content %}
+<article class="single-post">
+	<h1 class="the-title">Oops! Something went wrong.</h1>
+	<div class="the-content wysiwyg">
+		<p>You’re looking for a page that’s not here!</p>
+		<p><a href="{{ home_url|esc_url }}">Back Home</a></p>
+	</div>
+</article>
+{% endblock %}

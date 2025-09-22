@@ -1,0 +1,44 @@
+<div class="
+    text-image-block
+    text-image-block--align-{{ image_alignment|sanitize_html_class }}
+    {% if not image %}
+        text-image-block--no-image
+    {% endif %}
+    {% if bg_color %}
+        text-image-block--bg-{{ bg_color|sanitize_html_class }}
+    {% endif %}
+">
+
+	<div class="inner">
+		<div class="
+            media
+            {% if image_proportion %}
+                proportion--{{ image_proportion|sanitize_html_class }}
+            {% endif %}
+        ">
+			{% if image %}
+				<div class="image-outline">
+					{{ image }}
+				</div>
+			{% endif %}
+		</div>
+
+		<div class="content">
+			{% if kicker %}
+				<p class="kicker">{{ kicker }}</p>
+			{% endif %}
+			{% if headline %}
+				<h3 class="headline">
+					{% if headline_url %}
+						<a href="{{ headline_url|esc_url }}">{{ headline }}</a>
+					{% else %}
+						{{ headline }}
+					{% endif %}
+				</h3>
+			{% endif %}
+
+			{{ description }}
+
+		</div>
+	</div>
+</div>

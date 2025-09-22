@@ -1,0 +1,35 @@
+@use 'base/_imports.scss' as *;
+
+.breadcrumbs {
+    padding: rem_(16px);
+
+    .breadcrumb-list {
+        display: flex;
+    }
+
+    .breadcrumb {
+        list-style: none;
+        font-size: rem_(14px);
+        display: flex;
+        align-items: center;
+
+        a {
+            color: $red;
+
+            &[aria-current] {
+                color: $gray-70;
+            }
+        }
+    }
+
+    .separator {
+        border-top: rem_(1px) solid $gray-10;
+        border-right: rem_(1px) solid $gray-10;
+        transform: rotate(45deg);
+
+        display: inline-block;
+        margin: 0 rem_(8px);
+        width: 0.6em;
+        height: 0.6em;
+    }
+}

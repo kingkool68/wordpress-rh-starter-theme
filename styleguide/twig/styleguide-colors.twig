@@ -1,0 +1,78 @@
+{% extends 'base.twig' %}
+
+{% block content %}
+	<style>
+		.swatch
+		{
+			display: inline-block;
+			width  : 96px;
+			height : 96px;
+		}
+		table
+		{
+			border-collapse: collapse;
+		}
+		td
+		{
+			padding       : 0 25px;
+			vertical-align: middle;
+		}
+		tr td:first-of-type
+		{
+			padding: 0;
+		}
+	</style>
+
+	<article class="single-post">
+		<h1 class="the-title">
+			Colors
+		</h1>
+
+		<table>
+			<thead>
+				<tr>
+					<th></th>
+					<th>
+						Sass Variable
+					</th>
+					<th>
+						Hex Code
+					</th>
+					<th>
+						Color Generators
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for var,color in colors %}
+					<tr>
+						<td>
+							<span class="swatch" style="background-color: #{{ color.hex|esc_attr }}"></span>
+						</td>
+						<td>
+							<code>
+								{{ var }}
+							</code>
+						</td>
+						<td>
+							<code>
+								#
+								{{ color.hex }}
+							</code>
+						</td>
+						<td>
+							<a href="https://www.colorhexa.com/{{ color.hex|esc_attr }}" target="_blank">
+								ColorHexa.com
+							</a>
+							/
+							<a href="https://colorkit.co/color/{{ color.hex|esc_attr }}/" target="_blank">
+								ColorKit.co
+							</a>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</article>
+
+{% endblock %}

@@ -1,0 +1,114 @@
+name: Deploy
+on:
+  push:
+    branches:
+    - 'main'
+
+  workflow_dispatch:
+    inputs:
+      debug_enabled:
+        description: 'Run the build with tmate debugging enabled (https://github.com/marketplace/actions/debugging-with-tmate)'
+        required: false
+        default: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      CI: true
+      DISABLE_NOTIFIER: true
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Delete the postinstall script
+        # Otherwise it enter the watch task and never finishes
+        run: npm pkg delete scripts.postinstall
+
+      - name: Install dependencies
+        run: npm ci --no-audit --fund=false
+
+      - name: Compile CSS
+        run: npm run styles
+
+      - name: Compile JavaScript
+        run: npm run scripts
+
+      - name: Configure git
+        run: |
+          git config user.name "${GITHUB_ACTOR}"
+          git config user.email "${GITHUB_ACTOR}+github-actions[bot]@users.noreply.github.com"
+
+      - name: Commit changes
+        run: |
+          rm .gitignore
+          mv .gitignore-build .gitignore
+          git add -A
+          git commit -m "Build"
+
+          # Setup variables
+          BUILD_BRANCH="build/${GITHUB_REF_NAME}"
+          GITHUB_ACTION_URL="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/commit/${GITHUB_SHA}/checks"
+
+          # Switch branches... maybe?
+          if [ ! `git branch -r --list origin/$BUILD_BRANCH` ]; then
+            # Branch doesn't exist. Create it and check it out.
+            git branch -D "${BUILD_BRANCH}" || true
+            git checkout --orphan "${BUILD_BRANCH}"
+            git rm -rf .
+            git commit --allow-empty -m "Initial Commit"
+          else
+            git checkout -f ${BUILD_BRANCH}
+          fi
+
+          # Capture diff of the changes between the two branches
+          git diff --no-color --binary ${BUILD_BRANCH} ${GITHUB_REF_NAME} > ~/the.diff
+
+          # If there are changes, apply & push
+          if [ -s ~/the.diff ]; then
+            git apply ~/the.diff
+
+            # Add file changes and commit
+            git add .
+            git commit -m "Merged ${GITHUB_SHA} from ${GITHUB_REF_NAME}" -m "${GITHUB_ACTION_URL}"
+            git push origin ${BUILD_BRANCH} --force
+          else
+            echo "Nothing changed. No commit."
+          fi
+
+      # - name: Configure SSH
+      #   if: ${{ github.ref == 'refs/heads/master' }}
+      #   run: |
+      #     mkdir -p ~/.ssh/
+      #     echo "$SSH_KEY" > ~/.ssh/staging.key
+      #     chmod 600 ~/.ssh/staging.key
+      #     cat >>~/.ssh/config <<END
+      #     Host staging
+      #       HostName $SSH_HOST
+      #       Port 22
+      #       User $SSH_USER
+      #       IdentityFile ~/.ssh/staging.key
+      #       ForwardAgent yes
+      #       StrictHostKeyChecking no
+      #     END
+      #   env:
+      #     SSH_USER: ${{ secrets.SSH_USER }}
+      #     SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+      #     SSH_HOST: ${{ secrets.SSH_HOST }}
+
+      # - name: Deploy
+      #   if: github.ref == 'refs/heads/master'
+      #   run: ssh -T staging
+
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
+        if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.debug_enabled }}

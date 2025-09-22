@@ -1,0 +1,27 @@
+<a id="top" href="#main-content" class="screen-reader-text skip-to-content-link">Skip to Main Content</a>
+
+<header class="site-header js-site-header">
+	<div class="inner">
+		<a href="{{ site_url|esc_url }}" class="logo-link">
+			<span class="screen-reader-text">RH_</span>
+			{{ logo }}
+		</a>
+
+		{% if main_nav or main_nav_ctas %}
+			<nav class="nav-container" id="main-navigation">
+				<button class="mobile-menu-close js-mobile-menu-close" title="Close the menu">{{ close_icon }}</button>
+
+				{% if main_nav %}
+					<ul class="nav">
+						{{ main_nav }}
+					</ul>
+				{% endif %}
+			</nav>
+
+			<a href="#main-navigation" class="mobile-menu-trigger js-mobile-menu-trigger">
+				{{ menu_icon }}
+				Menu
+			</a>
+		{% endif %}
+	</div>
+</header>

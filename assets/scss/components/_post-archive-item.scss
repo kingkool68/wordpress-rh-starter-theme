@@ -1,0 +1,97 @@
+@use 'base/_imports.scss' as *;
+
+$_breakpoint : em_(1180px);
+
+.post-archive {
+    max-width: rem_(1080px);
+    margin: 0 auto;
+    padding: rem_(32px) rem_(16px) 0;
+
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+
+    position: relative; // To contain .the-aside
+
+    @media(max-width: $_breakpoint) {
+        flex-direction: column;
+    }
+
+    .title {
+        @include h1();
+
+        margin-bottom: rem_(24px);
+
+        .the-search-query {
+            color: $red;
+        }
+    }
+
+    .post-archive-items,
+    .no-posts-found {
+        flex-basis: rem_(870px);
+        min-height: rem_(480px);
+
+        @media( max-width: $_breakpoint ) {
+            flex-basis: auto;
+            min-height: auto;
+            margin-bottom: rem_(32px);
+        }
+    }
+
+    .refine-search {
+        color: $link-blue;
+        text-decoration: underline;
+    }
+}
+
+.post-archive-item {
+    display: flex;
+    margin-bottom: rem_(32px);
+
+    @media(max-width: em_(780px)) {
+        display: block;
+    }
+
+    >* {
+        flex-basis: 50%;
+    }
+
+    .media {
+        margin-right: rem_(64px);
+        margin-bottom: rem_(16px);
+
+        @media(max-width: em_(780px)) {
+            margin-right: 0;
+        }
+    }
+
+    .the-title {
+        @include h3();
+
+        margin-bottom: rem_(8px);
+    }
+
+    .the-meta {
+        margin-bottom: rem_(20px);
+    }
+
+    .date-categories {
+        font-size: rem_(12px);
+        color: $gray-70;
+
+        a {
+            color: $red;
+        }
+    }
+
+    .the-date {
+        font-weight: 600;
+    }
+
+    .the-excerpt {
+        color: $gray-70;
+        font-size: rem_(16px);
+        line-height: 1.575;
+    }
+}

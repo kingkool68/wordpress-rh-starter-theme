@@ -1,0 +1,51 @@
+<article class="post-archive-item">
+	<div class="media">
+		{% if the_image %}
+			{% if the_url %}
+				<a href="{{ the_url|esc_url }}">
+					{{ the_image }}
+				</a>
+			{% else %}
+				{{ the_image }}
+			{% endif %}
+		{% else %}
+			<div class="image-placeholder"></div>
+		{% endif %}
+	</div>
+
+	<div class="content">
+		{% if the_title %}
+			<h2 class="the-title">
+				{% if the_url %}
+					<a href="{{ the_url|esc_url }}">{{ the_title }}</a>
+				{% else %}
+					{{ the_title }}
+				{% endif %}
+			</h2>
+		{% endif %}
+
+		{% if display_date %}
+			<div class="the-meta">
+				{% if display_date or the_categories %}
+					<p class="date-categories">
+						{% if display_date %}
+							<time class="the-date" datetime="{{ machine_date|esc_attr }}">{{ display_date }}</time>
+						{% endif %}
+
+						{% if display_date and the_categories %} <span class="separator">&bull;</span> {% endif %}
+
+						{% for item in the_categories %}
+							<a href="{{ item.url|esc_url }}">{{ item.name }}</a> {% if not loop.last %},{% endif %}
+						{% endfor %}
+					</p>
+				{% endif %}
+			</div>
+		{% endif %}
+
+		{% if the_excerpt %}
+			<div class="the-excerpt">
+				{{ the_excerpt }}
+			</div>
+		{% endif %}
+	</div>
+</article>

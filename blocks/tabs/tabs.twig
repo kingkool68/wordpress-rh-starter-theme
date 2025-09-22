@@ -1,0 +1,8 @@
+    <section class="tab-panel js-tab-panel {{ add_class|sanitize_html_class }}" id="{{ label|sanitize_title|esc_attr }}-tab">
+        <InnerBlocks/>
+    </section>
+
+{% if is_last %}
+    </div>
+    {# closes .tab-container from tab-list.twig #}
+{% endif %}

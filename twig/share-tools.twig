@@ -1,0 +1,51 @@
+<section class="share-tools">
+	<div class="inner">
+		{% if label %}
+			<p class="label">{{ label }}</p>
+		{% endif %}
+
+		{% if facebook_share_url %}
+			<a
+				href="{{ facebook_share_url|esc_url }}"
+				class="link"
+				target="_blank"
+				rel="noopener"
+			>
+				{{ facebook_icon }}
+			</a>
+		{% endif %}
+
+		{% if twitter_share_url %}
+			<a
+				href="{{ twitter_share_url|esc_url }}"
+				class="link"
+				target="_blank"
+				rel="noopener"
+			>
+				{{ twitter_icon }}
+			</a>
+		{% endif %}
+
+		{% if linkedin_share_url %}
+			<a
+				href="{{ linkedin_share_url|esc_url }}"
+				class="link"
+				target="_blank"
+				rel="noopener"
+			>
+				{{ linkedin_icon }}
+			</a>
+		{% endif %}
+
+		{% if email_share_url %}
+			<a
+				href="{{ email_share_url|esc_url }}"
+				class="link"
+				target="_blank"
+				rel="noopener"
+			>
+				{{ email_icon }}
+			</a>
+		{% endif %}
+	</div>
+</section>

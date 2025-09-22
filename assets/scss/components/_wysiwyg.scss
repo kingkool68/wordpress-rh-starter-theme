@@ -1,0 +1,310 @@
+@use 'base/_imports.scss' as *;
+
+// For styling text content that was composed in the WYSIWYG editor where we can style elements directly
+.wysiwyg {
+	h1 {
+		@include h1();
+
+		margin-bottom: rem_(22px);
+	}
+
+	h2 {
+		@include h2();
+
+		margin-bottom: rem_(23px);
+	}
+
+	h3 {
+		@include h3();
+
+		margin-bottom: rem_(24px);
+	}
+
+	h4 {
+		@include h4();
+
+		margin-bottom: rem_(27px);
+	}
+
+	h5 {
+		@include h5();
+
+		margin-bottom: rem_(27px);
+	}
+
+	h6 {
+		@include h6();
+
+		margin-bottom: rem_(30px);
+	}
+
+	p {
+		font-size: rem_(16px);
+		line-height: 1.6;
+		margin-bottom: rem_(16px);
+	}
+
+	abbr {
+		text-decoration: none;
+		cursor: help;
+	}
+
+	cite {
+		font-style: italic;
+	}
+
+	pre {
+		font-family: $mono-font;
+		font-size: rem_(14px);
+		line-height: 1.3;
+		white-space: pre-wrap;
+
+		&>p {
+			font-size: rem_(14px);
+		}
+	}
+
+	code {
+		font-family: $mono-font;
+		font-size: rem_(14px);
+		line-height: 1.3;
+		border-radius: rem_(3px);
+		background-color: $gray-05;
+		padding: rem_(3px);
+	}
+
+	.wp-block-code {
+		margin-bottom: rem_(16px);
+
+		.hljs {
+			padding: rem_(24px);
+		}
+	}
+
+	blockquote {
+		margin: 0 0 rem_(16px);
+		border: rem_(1px) solid $gray-10;
+		border-radius: rem_(4px);
+		padding: rem_(28px);
+
+		>* {
+			font-size: rem_(16px);
+		}
+
+		>:last-child {
+			margin-bottom: 0;
+		}
+	}
+
+	sup {
+		font-size: 75%;
+		line-height: 0;
+		position: relative;
+		top: -0.5em;
+		vertical-align: baseline;
+	}
+
+	sub {
+		font-size: 75%;
+		line-height: 0;
+		position: relative;
+		bottom: -0.25em;
+		vertical-align: baseline;
+	}
+
+	a {
+		color: $link-blue;
+		text-decoration: none;
+
+		&:hover,
+		&:focus {
+			text-decoration: underline;
+		}
+	}
+
+	ul {
+		margin-bottom: rem_(16px);
+		counter-reset: index;
+
+		li {
+			font-size: rem_(16px);
+			line-height: 1.5;
+			margin-left: rem_(45px);
+			margin-bottom: rem_(10px);
+			list-style-type: disc;
+		}
+
+		&.no-bullets li {
+			list-style-type: none;
+			margin-left: 0;
+		}
+	}
+
+	ol {
+		margin-bottom: rem_(16px);
+
+		li {
+			list-style-type: decimal;
+			font-size: rem_(16px);
+			line-height: 1.5;
+			margin-left: rem_(30px);
+			margin-bottom: rem_(10px);
+		}
+
+		ul li {
+			list-style-type: disc;
+		}
+
+		&.outline li {
+			list-style-type: upper-roman;
+
+			ol li {
+				list-style-type: upper-alpha;
+
+				ol li {
+					list-style-type: lower-roman;
+
+					ol li {
+						list-style-type: lower-alpha;
+					}
+				}
+			}
+		}
+	}
+
+	.has-text-align-center {
+		text-align: center;
+	}
+
+	.has-text-align-right {
+		text-align: right;
+	}
+
+	.wp-block-image {
+		align-items: flex-start;
+		display: flex;
+		flex-direction: column;
+		flex-wrap: wrap;
+		margin: rem_(16px) auto rem_(38px);
+
+		&.extra-wide {
+			border: 0 none;
+			margin: rem_(80px) calc(50% - 49vw);
+
+			img {
+				display: block;
+				margin: 0 auto;
+				max-width: rem_(1080px);
+				width: 100%;
+			}
+		}
+
+		figcaption {
+			font-size: rem_(15px);
+			padding-top: rem_(8px);
+		}
+
+		// If the image is centered aligned, center the image caption
+		.aligncenter figcaption {
+			text-align: center;
+		}
+	}
+
+	.wp-block-video {
+		max-width: 100%;
+
+		video {
+			max-width: 100%;
+		}
+
+		[poster] {
+			object-fit: cover;
+		}
+
+		figcaption {
+			font-size: rem_(15px);
+			padding-top: rem_(8px);
+		}
+	}
+
+	.wp-block-columns {
+		display: flex;
+
+		@media (max-width: em_(680px)) {
+			display: block;
+		}
+
+		.wp-block-column {
+			flex: 1;
+			margin-left: rem_(20px);
+
+			@media (max-width: em_(680px)) {
+				margin-left: 0;
+			}
+
+			&:first-child {
+				margin-left: 0;
+			}
+		}
+	}
+
+	.wp-block-table {
+		display: block;
+		width: 100%;
+		margin-bottom: rem_(24px);
+		overflow-x: auto;
+		border-radius: rem_(4px);
+		border: rem_(1px) solid $gray-15;
+
+		table {
+			display: table;
+			min-width: 100%;
+			border-collapse: separate;
+		}
+
+		th,
+		td {
+			padding: rem_(8px) rem_(12px);
+			border-bottom: rem_(1px) solid rgba($gray-15, 0.5);
+			border-left: rem_(1px) solid $gray-15;
+
+			font-size: rem_(14px);
+			line-height: 1.6;
+
+			&:first-of-type {
+				border-left: 0;
+			}
+		}
+
+		tbody {
+			tr:last-of-type {
+
+				th,
+				td {
+					border-bottom: 0;
+				}
+
+				td {
+					padding-bottom: rem_(12px);
+				}
+			}
+		}
+
+		thead {
+			th {
+				border-bottom: rem_(1px) solid $gray-15;
+				font-weight: 700;
+			}
+		}
+
+		&.is-style-stripes {
+			tbody tr:nth-child(odd) {
+
+				th,
+				td {
+					background-color: $gray-05;
+				}
+			}
+		}
+	}
+}

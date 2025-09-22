@@ -1,0 +1,12 @@
+// Font families
+$headline-font  : Inter, Roboto, 'Helvetica Neue', 'Arial Nova', 'Nimbus Sans', Arial, sans-serif;
+$text-font      : Inter, Roboto, 'Helvetica Neue', 'Arial Nova', 'Nimbus Sans', Arial, sans-serif;
+$mono-font      : Menlo, 'Ubuntu Mono', Monaco, Consolas, 'source-code-pro', monospace;
+$helvetica-font : 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$system         : system-ui, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+
+$maximum-page-width    : rem_(1440px);
+$maximum-content-width : rem_(1280px);
+
+$header_height   : 72px;
+$admin_bar_height: 32px;

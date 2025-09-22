@@ -1,0 +1,154 @@
+{% extends 'base.twig' %}
+
+{% block content %}
+<style>
+	table {
+		width: 100%;
+	}
+	table th {
+		text-align: left;
+	}
+	table td {
+		vertical-align: middle;
+		padding: 16px 0;
+	}
+	table .sample {
+		width: 50%;
+	}
+	table .sample * {
+		margin-bottom: 0!important;
+	}
+
+	[class^="body-1"] .sample * {
+		font-size: 16px;
+	}
+
+	[class^="body-2"] .sample * {
+		font-size: 14px;
+	}
+
+	[class^="body-3"] .sample * {
+		font-size: 12px;
+	}
+
+	.wysiwyg .font-weight--900 {
+		font-weight: 900;
+	}
+	.wysiwyg .font-weight--800 {
+		font-weight: 800;
+	}
+	.wysiwyg .font-weight--700 {
+		font-weight: 700;
+	}
+	.wysiwyg .font-weight--600 {
+		font-weight: 600;
+	}
+	.wysiwyg .font-weight--500 {
+		font-weight: 500;
+	}
+	.wysiwyg .font-weight--400 {
+		font-weight: 400;
+	}
+	.wysiwyg .font-weight--300 {
+		font-weight: 300;
+	}
+	.wysiwyg .font-weight--200 {
+		font-weight: 200;
+	}
+	.wysiwyg .font-weight--100 {
+		font-weight: 100;
+	}
+</style>
+<article class="single-post">
+	<h1 class="the-title">Typography</h1>
+	<div class="the-content wysiwyg">
+		<table class="typography">
+			<thead>
+				<tr>
+					<th>Style name</th>
+					<th>Font weight</th>
+					<th>Font size</th>
+					<th>Line height</th>
+					<th>Example</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for item in specimans %}
+					<tr class="{{ item.label|sanitize_title }}">
+						<td>{{ item.label }}</td>
+						<td class="js-font-weight-value"></td>
+						<td class="js-font-size-value"></td>
+						<td class="js-line-height-value"></td>
+						<td class="js-font-size-target sample">
+							<{{ item.tag }} {% if item.weight %}class="font-weight--{{ item.weight|sanitize_html_class }}" {% endif %} contenteditable="false">
+								{{ sample_text }}
+							</{{item.tag}}>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</article>
+
+<script>
+var rows = document.querySelectorAll( 'tbody tr' );
+for (var i = 0; i < rows.length; i++) {
+	var row = rows[i];
+	var elem = row.querySelector('.js-font-size-target > *');
+	var theStyles = window.getComputedStyle( elem );
+	var theFontSize = theStyles.fontSize;
+	theFontSize = theFontSize.replace('px', '');
+	theRemSize = theFontSize / 16;
+	var theLineHeight = theStyles.lineHeight;
+	theLineHeight = theLineHeight.replace( 'px', '' );
+	theLineHeight = Math.round(theLineHeight);
+	var theLineHeightPercent = (theLineHeight/theFontSize * 100);
+	theLineHeightPercent = Math.round(theLineHeightPercent);
+	var theFontWeight = theStyles.fontWeight;
+	var theFontWeightName = '';
+	switch( theFontWeight ) {
+		case '900':
+			theFontWeightName = 'Black';
+			break;
+		case '800':
+			theFontWeightName = 'Extra Bold';
+			break;
+		case '700':
+			theFontWeightName = 'Bold';
+			break;
+		case '600':
+			theFontWeightName = 'Semi Bold';
+			break;
+		case '500':
+			theFontWeightName = 'Medium';
+			break;
+		case '400':
+			theFontWeightName = 'Regular';
+			break;
+		case '300':
+			theFontWeightName = 'Light';
+			break;
+		case '200':
+			theFontWeightName = 'Extra Light';
+			break;
+		case '100':
+			theFontWeightName = 'Thin';
+			break;
+	}
+	row.querySelector( '.js-font-size-value' ).textContent = theFontSize  + 'px / ' + theRemSize + 'rem';
+	row.querySelector( '.js-line-height-value' ).textContent = (theLineHeight/theFontSize).toPrecision(2)  + ' / ' + theLineHeightPercent + '% / ' + theLineHeight + 'px';
+	row.querySelector( '.js-font-weight-value' ).textContent = theFontWeight + ' / ' + theFontWeightName;
+}
+
+var editableElems = document.querySelectorAll("[contenteditable=true]");
+window.addEventListener("keyup", function (e) {
+  editableElems.forEach(function (el, i) {
+    if (el === e.target) {
+      return;
+    }
+    el.textContent = e.target.textContent;
+  });
+});
+</script>
+{% endblock %}

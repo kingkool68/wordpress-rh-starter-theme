@@ -1,0 +1,12 @@
+@use 'base/_imports.scss' as *;
+
+/* Use .hide for completely hidding an element from visual and screen readers */
+.hide,
+.js .hide-if-js {
+    display: none !important;
+}
+
+// Hide visually and from screen readers, but maintain layout
+.invisible {
+    visibility: hidden !important;
+}

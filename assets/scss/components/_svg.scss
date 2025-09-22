@@ -1,0 +1,10 @@
+@use 'base/_imports.scss' as *;
+
+svg {
+    fill: currentColor;
+}
+
+svg.icon {
+    width: 1em;
+    height: 1em;
+}

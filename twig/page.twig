@@ -1,0 +1,25 @@
+{% extends 'base.twig' %}
+
+{% block content %}
+
+	{% if flash_message %}
+		<div class="flash-alert">
+			<p>{{ flash_message }}</p>
+		</div>
+	{% endif %}
+
+	<article class="the-page">
+		{% if the_title %}
+			<h1 class="the-title">{{ the_title }}</h1>
+		{% endif %}
+
+		<section class="the-content wysiwyg">
+			{{ the_content }}
+		</section>
+
+		{{ after_the_content }}
+	</article>
+
+	{{ after_the_page }}
+
+{% endblock %}

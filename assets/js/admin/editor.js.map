@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["editor.src.js"],
+  "sourcesContent": ["(function ($) {\n    if ('object' !== typeof acf) {\n        return;\n    }\n    // Allow svgs in icon select fields. ACF < 2.6.8\n    acf.add_filter('select2_args', function (args, $select, settings, field, instance) {\n        // Taken from `acf-input.js`, just removed escaping from `$selection.html(acf.strEscape(selection.text));`.\n        args.templateSelection = function (selection) {\n            var $selection = $('<span class=\"acf-selection\"></span>');\n            $selection.html(selection.text);\n            $selection.data('element', selection.element);\n            return $selection;\n        };\n\n        return args;\n    });\n\n    // Allow svgs in icon select fields. ACF >= 2.6.8.\n    acf.add_filter('select2_escape_markup', function (escaped_value, original_value, $select, settings, field, instance) {\n        return original_value;\n    });\n})(jQuery);\n"],
+  "mappings": "OAAC,SAAUA,EAAG,CACO,OAAO,KAApB,WAIJ,IAAI,WAAW,eAAgB,SAAUC,EAAMC,EAASC,EAAUC,EAAOC,EAAU,CAE/E,OAAAJ,EAAK,kBAAoB,SAAUK,EAAW,CAC1C,IAAIC,EAAaP,EAAE,qCAAqC,EACxD,OAAAO,EAAW,KAAKD,EAAU,IAAI,EAC9BC,EAAW,KAAK,UAAWD,EAAU,OAAO,EACrCC,CACX,EAEON,CACX,CAAC,EAGD,IAAI,WAAW,wBAAyB,SAAUO,EAAeC,EAAgBP,EAASC,EAAUC,EAAOC,EAAU,CACjH,OAAOI,CACX,CAAC,EACL,GAAG,MAAM",
+  "names": ["$", "args", "$select", "settings", "field", "instance", "selection", "$selection", "escaped_value", "original_value"]
+}

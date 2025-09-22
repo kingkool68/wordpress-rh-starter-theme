@@ -1,0 +1,23 @@
+{% extends 'base.twig' %}
+
+{% block content %}
+
+	<div class="post-archive">
+		{% if blog_posts %}
+			<section class="post-archive-items">
+				<h1 class="title">{{ the_title }}</h1>
+				{{ blog_posts }}
+
+				{{ the_pagination }}
+			</section>
+		{% else %}
+			<section class="no-posts-found">
+				<h1 class="title">{{ the_title }}</h1>
+				<p>No posts found. <label for="blog-search-field" class="refine-search js-blog-refine-search-toggle">Try refining your search</label>.</p>
+			</section>
+		{% endif %}
+
+		{{ the_sidebar }}
+	</div>
+
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'base.twig' %}
+
+{% block content %}
+	<article class="single-post">
+		<h1 class="the-title">Figures</h1>
+		<div class="the-content wysiwyg">
+			<p>The following is a basic figure example with a caption.</p>
+			{{ basic }}
+
+			<p>The following image doesn't have a caption to display.</p>
+			{{ no_caption }}
+
+			<p>The image in the following figure is wrapped in a link with custom attributes.</p>
+			{{ with_link }}
+		</div>
+	</article>
+{% endblock %}

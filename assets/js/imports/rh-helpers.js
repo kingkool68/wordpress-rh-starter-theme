@@ -1,0 +1,2 @@
+(()=>{function u(t){var a={category:null,action:null,label:null,value:null};return!t.hasAttribute||!t.hasAttribute("data-ga-category")||(a.category=t.getAttribute("data-ga-category"),a.action=t.getAttribute("data-ga-action")||t.href,a.label=t.getAttribute("data-ga-label"),a.value=parseInt(t.getAttribute("data-ga-value"))||null),a}function i(t,a,n=240,l=10){var e=0,r=setInterval(function(){window[t]&&(clearInterval(r),a()),e++,e>l&&clearInterval(r)},n,e)}})();
+//# sourceMappingURL=rh-helpers.js.map

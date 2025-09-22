@@ -1,0 +1,92 @@
+{% extends 'base.twig' %}
+
+{% block content %}
+
+    {{ before_content }}
+	<style>
+		.styleguide-example {
+			margin: 3rem 0;
+		}
+		.breadcrumbs {
+			max-width: 90rem; /* 1440px */
+			margin: 1rem auto 0;
+		}
+	</style>
+	{% if the_breadcrumbs %}
+		{{ the_breadcrumbs }}
+	{% endif %}
+	<article class="the-page wysiwyg">
+
+		{% if the_title %}
+			<h1 class="the-title">{{ the_title }}</h1>
+		{% endif %}
+		{% if the_description %}
+			<div class="the-description">
+				{{ the_description }}
+			</div>
+		{% endif %}
+
+		{% if examples %}
+			<section class="the-examples">
+				<h2>Examples</h2>
+				{% for example in examples %}
+					<div class="styleguide-example">
+						{{ example }}
+					</div>
+				{% endfor %}
+			</section>
+		{% endif %}
+
+		{% if posts_containing_block %}
+			<section class="posts-containing-block">
+                <h2>Where is this block used?</h2>
+				<p>This block is used on {{ posts_containing_block|length|absint }}
+                    {% if posts_containing_block|length == 1 %}
+                        URL
+                    {% else %}
+                        different URLs
+                    {% endif %}
+                </p>
+
+				<div class="wp-block-table">
+					<table>
+						<thead>
+							<th></th>
+							<th>Post Type</th>
+						</thead>
+						<tbody>
+							{% for post in posts_containing_block %}
+								<tr>
+									<td>
+										<a href="{{ post.url|esc_url }}">
+											{{ post.title }}
+										</a>
+									</td>
+									<td>{{ post.post_type_label }}</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</section>
+		{% endif %}
+
+        {% if source_files %}
+            <section class="source-files">
+                <h2>Source Files</h2>
+				{% if is_user_logged_in %}
+					{% for item in source_files %}
+						<p>
+							<a href="{{ item.github_url|esc_url }}">
+								<code>{{ item.relative_path }}</code>
+							</a>
+						<p>
+					{% endfor %}
+				{% else %}
+					<p><a href="{{ wp_login_url|esc_url }}">Login to WordPress to see source file details.</a></p>
+				{% endif %}
+            </section>
+        {% endif %}
+	</article>
+
+{% endblock %}
