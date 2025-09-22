@@ -31,13 +31,6 @@ jobs:
           cache: 'npm'
           cache-dependency-path: 'package-lock.json'
 
-      - name: Cache dependencies
-        id: cache
-        uses: actions/cache@v4
-        with:
-          path: ./node_modules
-          key: modules-${{ hashFiles('package-lock.json') }}
-
       - name: Install dependencies
         run: npm ci --no-audit --fund=false --ignore-scripts
 
