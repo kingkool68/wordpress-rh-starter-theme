@@ -1,40 +1,41 @@
 /**
  * Customize the project in the config.js file
  */
-import config from "./gulp-config.js";
+import config from './gulp-config.js';
 
 /**
  * Load gulp plugins and passing them semantic names.
  */
-import gulp from "gulp"; // Gulp of-course
+import gulp from 'gulp'; // Gulp of-course
 
 // CSS related plugins.
-import * as dartSass from "sass"; // Gulp pluign for Sass compilation
-import gulpSass from "gulp-sass";
+import * as dartSass from 'sass'; // Gulp pluign for Sass compilation
+import gulpSass from 'gulp-sass';
 var sass = gulpSass(dartSass);
 
-import csso from "gulp-csso"; // CSS optimixations and minimizing
-import autoprefixer from "autoprefixer"; // Autoprefixing magic
-import postcss from "gulp-postcss"; // Run PostCSS tasks
-import sortMediaQueries from "postcss-sort-media-queries"; // Merge similiar media queries
+import csso from 'gulp-csso'; // CSS optimixations and minimizing
+import autoprefixer from 'autoprefixer'; // Autoprefixing magic
+import postcss from 'gulp-postcss'; // Run PostCSS tasks
+import sortMediaQueries from 'postcss-sort-media-queries'; // Merge similiar media queries
 
 // JS related plugins.
-import { createGulpEsbuild } from "gulp-esbuild";
+import { createGulpEsbuild } from 'gulp-esbuild';
 var esbuild = createGulpEsbuild({
 	pipe: true,
 });
-import replace from "gulp-replace"; // Search and replace contents
+import replace from 'gulp-replace'; // Search and replace contents
 
 // Utility related plugins.
-import fs from "fs"; // The filesystem for manipulating files
-import { exec } from "child_process";
-import plumber from "gulp-plumber"; // Prevent pipe breaking caused by errors from gulp plugins
-import sourcemaps from "gulp-sourcemaps"; // For generating sourcemaps
-import rename from "gulp-rename"; // Renames files E.g. style.css -> style.min.css
-import lineec from "gulp-line-ending-corrector"; // Consistent Line Endings for non UNIX systems
-import log from "fancy-log"; // Fancy logging
+import fs from 'fs'; // The filesystem for manipulating files
+import { exec } from 'child_process';
+import plumber from 'gulp-plumber'; // Prevent pipe breaking caused by errors from gulp plugins
+import sourcemaps from 'gulp-sourcemaps'; // For generating sourcemaps
+import rename from 'gulp-rename'; // Renames files E.g. style.css -> style.min.css
+import lineec from 'gulp-line-ending-corrector'; // Consistent Line Endings for non UNIX systems
+import log from 'fancy-log'; // Fancy logging
 // import debug from 'gulp-debug'; // For debugging Gulp filenames and paths
-import { deleteSync } from "del"; // Handles deleting files and directories
+import { deleteSync } from 'del'; // Handles deleting files and directories
+import prettier from 'gulp-prettier'; // For linting and fixing files
 
 /**
  * Helper to log success messages
@@ -44,7 +45,7 @@ import { deleteSync } from "del"; // Handles deleting files and directories
  * @return  {string}           The pretty formatted success message
  */
 function logSuccess(message) {
-	log("✅✅✅✅ " + message);
+	log('✅✅✅✅ ' + message);
 }
 
 /**
@@ -55,29 +56,29 @@ function logSuccess(message) {
  * @return  {string}           The pretty formatted error message
  */
 function logError(message) {
-	log("❌❌❌❌ " + message);
+	log('❌❌❌❌ ' + message);
 
 	// Make an audible beep
-	if (process.platform === "darwin") {
+	if (process.platform === 'darwin') {
 		// Play a beep sound on MacOS
 		exec("osascript -e 'beep'");
 	} else {
-		process.stdout.write("\x07");
+		process.stdout.write('\x07');
 	}
 }
 
 /**
  * Delete previously compiled files
  */
-gulp.task("clean", function () {
+gulp.task('clean', function () {
 	deleteSync(config.filesToClean);
-	return gulp.src(".").on("end", () => logSuccess("🧹"));
+	return gulp.src('.').on('end', () => logSuccess('🧹'));
 });
 
 /**
  * Compile Sass and generate CSS files
  */
-gulp.task("styles", function () {
+gulp.task('styles', function () {
 	let hadError = false;
 	return (
 		gulp
@@ -87,17 +88,17 @@ gulp.task("styles", function () {
 					errorHandler: function (err) {
 						hadError = true;
 						logError(err.messageFormatted);
-						this.emit("end"); // End stream if error is found
+						this.emit('end'); // End stream if error is found
 					},
-				}),
+				})
 			)
 			// .pipe(sourcemaps.init())
 			.pipe(
 				sass({
-					outputStyle: "expanded",
+					outputStyle: 'expanded',
 					precision: config.precision,
 					loadPaths: config.loadPaths,
-				}),
+				})
 			)
 			.pipe(
 				postcss([
@@ -105,16 +106,16 @@ gulp.task("styles", function () {
 						overrideBrowserslist: config.BROWSERS_LIST,
 					}),
 					sortMediaQueries(),
-				]),
+				])
 			)
-			.pipe(rename({ suffix: ".min" }))
+			.pipe(rename({ suffix: '.min' }))
 			.pipe(csso())
 			.pipe(lineec())
 			// .pipe(sourcemaps.write('.'))
 			.pipe(gulp.dest(config.styleDestination))
-			.on("finish", () => {
+			.on('finish', () => {
 				if (!hadError) {
-					logSuccess("🎨");
+					logSuccess('🎨');
 				}
 			})
 	);
@@ -124,17 +125,17 @@ gulp.task("styles", function () {
  * See if a compiled CSS file contains certain patterns we know are errors
  */
 gulp.task(
-	"styles:test",
-	gulp.series("clean", "styles", function runStyleTests(done) {
-		const css = fs.readFileSync("assets/css/rh.min.css", "utf8");
+	'styles:test',
+	gulp.series('clean', 'styles', function runStyleTests(done) {
+		const css = fs.readFileSync('assets/css/rh.min.css', 'utf8');
 		const checks = [
 			{
-				pattern: "svg + xml",
+				pattern: 'svg + xml',
 				message: 'There should be no spaces around + in "svg+xml"',
 			},
 			{
-				pattern: "rem+3);",
-				message: "There should be spaces around + in clamp() functions",
+				pattern: 'rem+3);',
+				message: 'There should be spaces around + in clamp() functions',
 			},
 		];
 
@@ -144,14 +145,14 @@ gulp.task(
 			}
 		});
 
-		return gulp.src(".").on("end", () => logSuccess("🧪"));
-	}),
+		return gulp.src('.').on('end', () => logSuccess('🧪'));
+	})
 );
 
 /**
  * Compile JavaScript files using esbuild
  */
-gulp.task("scripts", function () {
+gulp.task('scripts', function () {
 	let hadError = false;
 	return gulp
 		.src(config.scriptSRC)
@@ -160,35 +161,35 @@ gulp.task("scripts", function () {
 				errorHandler: function (err) {
 					hadError = true;
 					logError(err.message);
-					this.emit("end"); // End stream if error is found
+					this.emit('end'); // End stream if error is found
 				},
-			}),
+			})
 		)
 		.pipe(
 			esbuild({
 				bundle: true,
 				minify: true,
 				sourcemap: true,
-				target: ["es2015"],
-				loader: { ".js": "js" },
-			}),
+				target: ['es2015'],
+				loader: { '.js': 'js' },
+			})
 		)
 		.pipe(lineec()) // Consistent Line Endings for non UNIX systems
 		.pipe(
 			rename(function (path) {
-				path.basename = path.basename.replace(".src", "");
+				path.basename = path.basename.replace('.src', '');
 				return path;
-			}),
+			})
 		)
 		.pipe(
 			replace(/\/\/# sourceMappingURL=.*$/m, function () {
 				return `//# sourceMappingURL=${this.file.basename}.map`;
-			}),
+			})
 		)
 		.pipe(gulp.dest(config.scriptDest))
-		.on("finish", () => {
+		.on('finish', () => {
 			if (!hadError) {
-				logSuccess("🛠️");
+				logSuccess('🛠️');
 			}
 		});
 });
@@ -196,7 +197,7 @@ gulp.task("scripts", function () {
 /**
  * Copy files from a directery like node_modules to another location
  */
-gulp.task("setup", function (done) {
+gulp.task('setup', function (done) {
 	config.filesToMove.forEach(function (file) {
 		if (!file.rename) {
 			file.rename = {};
@@ -207,12 +208,38 @@ gulp.task("setup", function (done) {
 });
 
 /**
+ * Run Prettier in "check" mode against all source files.
+ *
+ * This task verifies that JavaScript and stylesheet files conform
+ * to Prettier’s formatting rules without making any changes.
+ * If formatting issues are found, the task will fail.
+ */
+gulp.task('prettier', function () {
+	return gulp
+		.src([...config.scriptSRC, ...config.styleSRC])
+		.pipe(prettier.check());
+});
+
+/**
+ * Run Prettier in "write" mode to automatically fix formatting issues.
+ *
+ * This task reformats JavaScript and stylesheet files according
+ * to Prettier’s rules and writes the corrected files back to disk.
+ */
+gulp.task('prettier:fix', function () {
+	return gulp
+		.src([...config.scriptSRC, ...config.styleSRC])
+		.pipe(prettier())
+		.pipe(gulp.dest('.'));
+});
+
+/**
  * Watches for file changes and runs specific tasks
  */
 gulp.task(
-	"default",
-	gulp.parallel("clean", "styles", "scripts", function watchFiles() {
-		gulp.watch(config.styleWatchFiles, gulp.parallel("styles")); // Reload on SCSS file changes.
-		gulp.watch(config.scriptWatchFiles, gulp.series("scripts")); // Reload on scripts file changes.
-	}),
+	'default',
+	gulp.parallel('clean', 'styles', 'scripts', function watchFiles() {
+		gulp.watch(config.styleWatchFiles, gulp.parallel('styles')); // Reload on SCSS file changes.
+		gulp.watch(config.scriptWatchFiles, gulp.series('scripts')); // Reload on scripts file changes.
+	})
 );
