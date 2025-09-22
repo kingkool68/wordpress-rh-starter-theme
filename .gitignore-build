@@ -1,0 +1,10 @@
+/vendor/
+/node_modules/
+
+# For security reasons
+composer.json
+composer.lock
+package.json
+package-lock.json
+gulpfile.mjs
+gulp-config.js
