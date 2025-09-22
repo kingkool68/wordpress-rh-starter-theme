@@ -1,4 +1,4 @@
-name: Cache Deploy
+name: Deploy
 on:
   push:
     branches:
@@ -17,12 +17,13 @@ jobs:
     env:
       CI: true
       DISABLE_NOTIFIER: true
+    permissions:
+      contents: write
 
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          persist-credentials: true
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -30,7 +31,7 @@ jobs:
           node-version: '22'
 
       - name: Install dependencies
-        run: npm ci --no-audit --fund=false --ignore-scripts
+        run: npm ci --no-audit --fund=false
 
       - name: Compile CSS
         run: npm run styles
