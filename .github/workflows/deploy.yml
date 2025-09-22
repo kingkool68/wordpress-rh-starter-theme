@@ -30,7 +30,8 @@ jobs:
         with:
           node-version: '22'
 
-      - name: Delete the postinstall script?
+      - name: Delete the postinstall script
+        # Otherwise it enter the watch task and never finishes
         run: npm pkg delete scripts.postinstall
 
       - name: Install dependencies
