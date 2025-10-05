@@ -23,7 +23,6 @@ import { createGulpEsbuild } from 'gulp-esbuild';
 var esbuild = createGulpEsbuild({
 	pipe: true,
 });
-import replace from 'gulp-replace'; // Search and replace contents
 
 // Utility related plugins.
 import fs from 'fs'; // The filesystem for manipulating files
@@ -177,13 +176,10 @@ gulp.task('scripts', function () {
 		.pipe(lineec()) // Consistent Line Endings for non UNIX systems
 		.pipe(
 			rename(function (path) {
-				path.basename = path.basename.replace('.src', '');
+				if (path.extname === '.js') {
+					path.basename = path.basename.replace('.src', '');
+				}
 				return path;
-			})
-		)
-		.pipe(
-			replace(/\/\/# sourceMappingURL=.*$/m, function () {
-				return `//# sourceMappingURL=${this.file.basename}.map`;
 			})
 		)
 		.pipe(gulp.dest(config.scriptDest))
