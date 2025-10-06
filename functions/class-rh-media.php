@@ -5,6 +5,13 @@
 class RH_Media {
 
 	/**
+	 * References reconstructed sizes for an attachment
+	 *
+	 * @var array
+	 */
+	public static $image_sizes = null;
+
+	/**
 	 * Get an instance of this class
 	 */
 	public static function get_instance() {
@@ -57,7 +64,6 @@ class RH_Media {
 			$ver       = null,
 			$in_footer = true
 		);
-
 	}
 
 	/**
@@ -163,6 +169,54 @@ class RH_Media {
 	public function filter_upload_mimes( $mimes = array() ) {
 		$mimes['svg'] = 'image/svg+xml';
 		return $mimes;
+	}
+
+	/**
+	 * Get a list of image sizes registered with WordPress
+	 */
+	public static function get_image_sizes() {
+		if ( static::$image_sizes !== null ) {
+			return static::$image_sizes;
+		}
+
+		$_wp_additional_image_sizes = wp_get_additional_image_sizes();
+		$sizes                      = array();
+
+		$intermediate_image_sizes = get_intermediate_image_sizes();
+		foreach ( $intermediate_image_sizes as $s ) {
+			$sizes[ $s ] = array(
+				'width'  => '',
+				'height' => '',
+				'crop'   => false,
+			);
+			if ( isset( $_wp_additional_image_sizes[ $s ]['width'] ) ) {
+				// For theme-added sizes.
+				$sizes[ $s ]['width'] = intval( $_wp_additional_image_sizes[ $s ]['width'] );
+			} else {
+				// For default sizes set in options.
+				$sizes[ $s ]['width'] = get_option( "{$s}_size_w" );
+			}
+
+			if ( isset( $_wp_additional_image_sizes[ $s ]['height'] ) ) {
+				// For theme-added sizes.
+				$sizes[ $s ]['height'] = intval( $_wp_additional_image_sizes[ $s ]['height'] );
+			} else {
+				// For default sizes set in options.
+				$sizes[ $s ]['height'] = get_option( "{$s}_size_h" );
+			}
+
+			if ( isset( $_wp_additional_image_sizes[ $s ]['crop'] ) ) {
+				// For theme-added sizes.
+				$sizes[ $s ]['crop'] = $_wp_additional_image_sizes[ $s ]['crop'];
+			} else {
+				// For default sizes set in options.
+				$sizes[ $s ]['crop'] = get_option( "{$s}_crop" );
+			}
+		}
+
+		static::$image_sizes = $sizes;
+
+		return $sizes;
 	}
 
 	/**
