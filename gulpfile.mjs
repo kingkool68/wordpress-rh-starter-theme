@@ -67,6 +67,19 @@ function logError(message) {
 }
 
 /**
+ * Strip .src .js from a JavaScript file's basename
+ *
+ * @param   {string}  val  The JS basename to be cleaned
+ *
+ * @return  {string}       The modified basename
+ */
+function cleanJSBasename(val) {
+	var val = val.replace('.src', '');
+	val = val.replace('.js', '');
+	return val;
+}
+
+/**
  * Delete previously compiled files
  */
 gulp.task('clean', function () {
@@ -153,6 +166,7 @@ gulp.task(
  */
 gulp.task('scripts', function () {
 	let hadError = false;
+	let pathMapping = {};
 	return gulp
 		.src(config.scriptSRC)
 		.pipe(
@@ -162,6 +176,13 @@ gulp.task('scripts', function () {
 					logError(err.message);
 					this.emit('end'); // End stream if error is found
 				},
+			})
+		)
+		.pipe(
+			rename(function (path) {
+				let key = cleanJSBasename(path.basename);
+				pathMapping[key] = path.dirname;
+				return path;
 			})
 		)
 		.pipe(
@@ -175,7 +196,12 @@ gulp.task('scripts', function () {
 		)
 		.pipe(lineec()) // Consistent Line Endings for non UNIX systems
 		.pipe(
+			// Maybe fix paths that the esbuild step clobbers?
 			rename(function (path) {
+				let key = cleanJSBasename(path.basename);
+				if (pathMapping[key]) {
+					path.dirname = pathMapping[key];
+				}
 				if (path.extname === '.js') {
 					path.basename = path.basename.replace('.src', '');
 				}
