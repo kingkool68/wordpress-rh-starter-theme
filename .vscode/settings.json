@@ -8,5 +8,7 @@
 		"javascriptreact",
 		"typescript",
 		"typescriptreact"
-	]
+	],
+	"phpsab.executablePathCS": "./vendor/bin/phpcs",
+	"phpsab.standard": "./phpcs.ruleset.xml"
 }
