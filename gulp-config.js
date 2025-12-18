@@ -26,6 +26,7 @@ module.exports = {
 	filesToClean: [
 		'./assets/css/',
 		'./assets/js/**/*.js',
+		'./assets/js/**/*.map',
 		'!./assets/js/',
 		'!./assets/js/**/*.src.js',
 	],
