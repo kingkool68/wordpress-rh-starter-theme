@@ -1,4 +1,4 @@
-@use 'base/_imports.scss' as *;
+@use "base/_imports.scss" as *;
 
 // For styling text content that was composed in the WYSIWYG editor where we can style elements directly
 .wysiwyg {
@@ -59,7 +59,7 @@
 		line-height: 1.3;
 		white-space: pre-wrap;
 
-		&>p {
+		& > p {
 			font-size: rem(14px);
 		}
 	}
@@ -87,11 +87,11 @@
 		border-radius: rem(4px);
 		padding: rem(28px);
 
-		>* {
+		> * {
 			font-size: rem(16px);
 		}
 
-		>:last-child {
+		> :last-child {
 			margin-bottom: 0;
 		}
 	}
@@ -278,7 +278,6 @@
 
 		tbody {
 			tr:last-of-type {
-
 				th,
 				td {
 					border-bottom: 0;
@@ -299,7 +298,6 @@
 
 		&.is-style-stripes {
 			tbody tr:nth-child(odd) {
-
 				th,
 				td {
 					background-color: $gray-05;

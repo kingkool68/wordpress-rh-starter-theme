@@ -1,41 +1,41 @@
-@use 'base/_imports.scss' as *;
+@use "base/_imports.scss" as *;
 
 .single-post {
-    max-width: $maximum-page-width;
-    padding: rem(32px) rem(16px) 0;
-    margin: 0 auto;
+	max-width: $maximum-page-width;
+	padding: rem(32px) rem(16px) 0;
+	margin: 0 auto;
 
-    position: relative; // To contain .the-aside
+	position: relative; // To contain .the-aside
 
-    .the-post {
-        max-width: rem(760px);
-        margin: 0 auto rem(48px);
-    }
+	.the-post {
+		max-width: rem(760px);
+		margin: 0 auto rem(48px);
+	}
 
-    .the-title {
-        @include h1();
+	.the-title {
+		@include h1();
 
-        margin-bottom: rem(22px);
-    }
+		margin-bottom: rem(22px);
+	}
 
-    .the-meta {
-        margin-bottom: rem(20px);
-    }
+	.the-meta {
+		margin-bottom: rem(20px);
+	}
 
-    .date-categories {
-        font-size: rem(14px);
-        color: $gray-70;
+	.date-categories {
+		font-size: rem(14px);
+		color: $gray-70;
 
-        a {
-            color: $red;
-        }
-    }
+		a {
+			color: $red;
+		}
+	}
 
-    .the-date {
-        font-weight: 600;
-    }
+	.the-date {
+		font-weight: 600;
+	}
 
-    .the-featured-image {
-        margin-bottom: rem(32px);
-    }
+	.the-featured-image {
+		margin-bottom: rem(32px);
+	}
 }
