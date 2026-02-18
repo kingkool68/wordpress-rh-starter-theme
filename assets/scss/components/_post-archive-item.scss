@@ -1,11 +1,11 @@
 @use 'base/_imports.scss' as *;
 
-$_breakpoint : em_(1180px);
+$_breakpoint : em(1180px);
 
 .post-archive {
-    max-width: rem_(1080px);
+    max-width: rem(1080px);
     margin: 0 auto;
-    padding: rem_(32px) rem_(16px) 0;
+    padding: rem(32px) rem(16px) 0;
 
     display: flex;
     flex-direction: row-reverse;
@@ -20,7 +20,7 @@ $_breakpoint : em_(1180px);
     .title {
         @include h1();
 
-        margin-bottom: rem_(24px);
+        margin-bottom: rem(24px);
 
         .the-search-query {
             color: $red;
@@ -29,13 +29,13 @@ $_breakpoint : em_(1180px);
 
     .post-archive-items,
     .no-posts-found {
-        flex-basis: rem_(870px);
-        min-height: rem_(480px);
+        flex-basis: rem(870px);
+        min-height: rem(480px);
 
         @media( max-width: $_breakpoint ) {
             flex-basis: auto;
             min-height: auto;
-            margin-bottom: rem_(32px);
+            margin-bottom: rem(32px);
         }
     }
 
@@ -47,9 +47,9 @@ $_breakpoint : em_(1180px);
 
 .post-archive-item {
     display: flex;
-    margin-bottom: rem_(32px);
+    margin-bottom: rem(32px);
 
-    @media(max-width: em_(780px)) {
+    @media(max-width: em(780px)) {
         display: block;
     }
 
@@ -58,10 +58,10 @@ $_breakpoint : em_(1180px);
     }
 
     .media {
-        margin-right: rem_(64px);
-        margin-bottom: rem_(16px);
+        margin-right: rem(64px);
+        margin-bottom: rem(16px);
 
-        @media(max-width: em_(780px)) {
+        @media(max-width: em(780px)) {
             margin-right: 0;
         }
     }
@@ -69,15 +69,15 @@ $_breakpoint : em_(1180px);
     .the-title {
         @include h3();
 
-        margin-bottom: rem_(8px);
+        margin-bottom: rem(8px);
     }
 
     .the-meta {
-        margin-bottom: rem_(20px);
+        margin-bottom: rem(20px);
     }
 
     .date-categories {
-        font-size: rem_(12px);
+        font-size: rem(12px);
         color: $gray-70;
 
         a {
@@ -91,7 +91,7 @@ $_breakpoint : em_(1180px);
 
     .the-excerpt {
         color: $gray-70;
-        font-size: rem_(16px);
+        font-size: rem(16px);
         line-height: 1.575;
     }
 }

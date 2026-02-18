@@ -1,19 +1,19 @@
 @use 'base/_functions.scss' as *;
 
 @mixin hidden {
-  clip: rect(rem_(1px), rem_(1px), rem_(1px), rem_(1px));
-  height: rem_(1px);
+  clip: rect(rem(1px), rem(1px), rem(1px), rem(1px));
+  height: rem(1px);
   overflow: hidden;
   position: absolute !important;
-  width: rem_(1px);
+  width: rem(1px);
 }
 
 @mixin unhidden {
   clip: auto !important;
   display: block;
   height: auto;
-  left: rem_(5px);
-  top: rem_(5px);
+  left: rem(5px);
+  top: rem(5px);
   width: auto;
   z-index: 101; // Above WP toolbar
 }

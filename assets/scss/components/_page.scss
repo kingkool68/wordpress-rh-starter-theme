@@ -1,9 +1,9 @@
 @use 'base/_imports.scss' as *;
 
 .the-page {
-    max-width: rem_(1024px);
+    max-width: rem(1024px);
     margin: 0 auto;
-    padding: rem_(32px) rem_(16px) 0;
+    padding: rem(32px) rem(16px) 0;
 
     // Prevent horizontal scroll bar when busting elements outside of their container
     // i.e. margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw);
@@ -14,6 +14,6 @@
     .the-title {
         @include h1();
 
-        margin-bottom: rem_(22px);
+        margin-bottom: rem(22px);
     }
 }
