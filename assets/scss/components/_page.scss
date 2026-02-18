@@ -1,8 +1,6 @@
 @use "base/_imports.scss" as *;
 
 .the-page {
-	max-width: rem(1024px);
-	margin: 0 auto;
 	padding: rem(32px) rem(16px) 0;
 
 	// Prevent horizontal scroll bar when busting elements outside of their container
