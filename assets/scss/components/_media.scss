@@ -7,12 +7,12 @@ img {
 
 .alignleft {
     float: left;
-    margin: 0 rem_(16px) rem_(16px) 0;
+    margin: 0 rem(16px) rem(16px) 0;
 }
 
 .alignright {
     float: right;
-    margin: 0 0 rem_(16px) rem_(16px);
+    margin: 0 0 rem(16px) rem(16px);
 }
 
 .aligncenter {
@@ -42,7 +42,7 @@ img {
     }
 }
 
-@media(max-width: em_(700px)) {
+@media(max-width: em(700px)) {
     .alignleft,
     .alignright {
         float: none;

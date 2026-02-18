@@ -1,6 +1,6 @@
 @use 'base/_imports.scss' as *;
 
-$_border-radius : rem_(12px);
+$_border-radius : rem(12px);
 
 .tabs-container {
     .the-tab-list {
@@ -17,7 +17,7 @@ $_border-radius : rem_(12px);
         a {
             display: block;
             height: 100%;
-            padding: rem_(4px) rem_(16px);
+            padding: rem(4px) rem(16px);
             color: $gray-67;
             background-color: $gray-10;
             border-top-right-radius: $_border-radius;
@@ -41,7 +41,7 @@ $_border-radius : rem_(12px);
         border-bottom-left-radius : $_border-radius;
         border-bottom-right-radius: $_border-radius;
         border-top-right-radius: $_border-radius;
-        padding: rem_(16px);
+        padding: rem(16px);
     }
 
     .tab-panel[hidden] {
