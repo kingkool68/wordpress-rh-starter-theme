@@ -1,0 +1,49 @@
+.page-layout > *,
+.full-width > * {
+  grid-column: content;
+}
+.page-layout,
+.full-width {
+--minimum-content-padding: 2rem;
+
+/** TRACK WIDTHS **/
+--full-max-width: 1fr;
+--popout-max-width: 1400px;
+--content-max-width: 860px;
+
+/** TRACK SIZES **/
+--full: minmax( var(--minimum-content-padding), 1fr );
+--popout: minmax( 0, calc( ( var(--popout-max-width) - var(--content-max-width)) * 0.5 ) );
+--content: min( var(--content-max-width), 100% - var(--minimum-content-padding) * 2 );
+
+display: grid;
+grid-template-columns:
+  [full-start]
+  var(--full)
+    [popout-start]
+    var(--popout)
+      [content-start]
+      var(--content)
+      [content-end]
+    var(--popout)
+    [popout-end]
+  var(--full)
+  [full-end];
+}
+
+/** CLASSES **/
+.full { grid-column: full; }
+.full-start { grid-column-start: full-start; }
+.full-end { grid-column-end: full-end; }
+
+.popout { grid-column: popout; }
+.popout-start { grid-column-start: popout-start; }
+.popout-end { grid-column-end: popout-end; }
+
+.content { grid-column: content; }
+.content-start { grid-column-start: content-start; }
+.content-end { grid-column-end: content-end; }
+
+.full-width { grid-column: full; }
+.full-content, .full-content-nopad { grid-column: full; }
+.full-content { padding-inline: var(--minimum-content-padding); }
